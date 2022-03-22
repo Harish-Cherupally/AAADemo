@@ -1,0 +1,23 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="SiteSearchController">
+	<aura:attribute name="recordId" type="String" />
+    <aura:attribute name="strObjectName" type="String" default="Case"/>
+    <aura:attribute name="strSiteFieldName" type="String" default="AccountId"/>
+    <aura:attribute name="listRelatedItems" type="List" default="[]" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <aura:iteration items="{!v.listRelatedItems}" var="relatedItem">
+        <div class="slds-tabs_default relatedItemCss">
+            <ul class="slds-tabs_default__nav" role="tablist">
+                <li class="slds-tabs_default__item slds-is-active" title="Item One" role="presentation">
+                    <a class="slds-tabs_default__link" href="#" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-default-1">{!relatedItem.strTableName}</a>
+                </li>
+            </ul>
+            <div class="slds-tabs_default__content slds-show" role="tabpanel">
+                <c:CustomDatatableComponent
+                    tableData="{!relatedItem.listData}"
+                    columns="{!relatedItem.listColumns}"
+                    hideCheckboxColumn="true"/>
+            </div>
+        </div>
+    </aura:iteration>
+</aura:component>

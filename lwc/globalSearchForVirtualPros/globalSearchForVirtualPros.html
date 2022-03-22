@@ -1,0 +1,155 @@
+<template>
+	<lightning-card>
+		<div slot="title">
+			<div class="slds-grid">
+				<div class="slds-p-vertical_x-small slds-grid slds-grid_vertical-align-center">
+					Search Component 
+				</div>
+				<div>
+					<lightning-helptext icon-name="utility:info" content="This component is used to search records for following object with his respective fields."></lightning-helptext>
+				</div>
+			</div>
+		</div>
+		<lightning-button label="Search"  variant="brand" slot="actions" onclick={handleSearchClick}></lightning-button>
+		<p class="slds-p-horizontal_small slds-p-bottom_large">
+			<lightning-combobox
+				name="objectList"
+				label="Select Object Name"
+				value={selectedObjectName}
+				placeholder="Select Object"
+				options={objectOptions}
+				onchange={handleObjectNameChange} ></lightning-combobox>
+		</p>
+		<div class="slds-p-around_large slds-m-around_large" style="box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;">
+			<lightning-card>
+				<div slot="title">
+					<div class="slds-grid">
+						<div class="slds-p-vertical_x-small slds-grid slds-grid_vertical-align-center">
+							Fields 
+						</div>
+						<div>
+							<lightning-helptext icon-name="utility:info" content="Enter search criteria for respective field. If field(s) is blank means it will select all records."></lightning-helptext>
+						</div>
+					</div>
+				</div>
+				<div >
+					<lightning-record-edit-form object-api-name={selectedObjectName} >
+						<template for:each={recordEditFormFields} for:item="field">
+							<lightning-input 
+								key={field.name}
+								type="text" 
+								data-name={field.name}
+								onchange={inputFieldHandleChange}
+								label={field.label}>
+							</lightning-input>
+						</template>
+						<!--
+						<template if:true={isCaseObject}>
+							<lightning-input 
+								type="text" 
+								data-name={field.name}
+								onchange={inputFieldHandleChange}
+								label={field.name}>
+							</lightning-input>
+						</template>
+						
+						<template if:true={isWorkOrderObject}>
+							<lightning-input 
+								type="text" 
+								data-name="WorkOrderNumber"
+								onchange={inputFieldHandleChange}
+								label="Work Order Number">
+							</lightning-input>
+						</template>
+						<template for:each={recordEditFormFields} for:item="field">
+						<lightning-input-field
+							key={field.name}
+							field-name={field.name}
+							data-name={field.name}
+							required="false"
+							onchange={inputFieldHandleChange}
+							value={field.value}>
+						</lightning-input-field>
+						</template>
+						-->
+					</lightning-record-edit-form>
+				</div>
+			</lightning-card>
+		</div>
+		<div>
+			<template if:true={showDatatable}>
+				<lightning-datatable
+						key-field="id"
+						data={data}
+						columns={columns}
+						hide-checkbox-column="true"
+						onrowaction={navigateToRecordViewPage}>
+				</lightning-datatable>
+			</template>
+		</div>
+		<div>
+			<template if:true={isNoResults}>
+				<div class="slds-text-color_destructive slds-text-align_center slds-p-around_large">
+					No records found for the search criteria entered.
+				</div>
+			</template>
+		</div>
+	</lightning-card>
+	<template if:true={showSpinner}>
+		<lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+	</template>
+	<!--
+	<div class="slds-m-around_medium">
+		<div class="slds-m-bottom_small">
+			<lightning-input type="text"
+				value={searchValue}
+				label="Contact Name"
+				onchange={searchKeyword}
+				></lightning-input>
+		</div>
+		<lightning-button label="Search"
+			onclick={handleSearchKeyword}
+			variant="brand"></lightning-button>
+		<table class="slds-table slds-table_cell-buffer slds-table_bordered slds-m-top_small">
+			<thead>
+				<tr class="slds-line-height_reset">
+					<th class="" scope="col">
+						<div class="slds-truncate" title="First Name">First Name</div>
+					</th>
+					<th class="" scope="col">
+						<div class="slds-truncate" title="Last Name">Last Name</div>
+					</th>
+					<th class="" scope="col">
+						<div class="slds-truncate" title="Phone">Phone</div>
+					</th>
+					<th class="" scope="col">
+						<div class="slds-truncate" title="Email">Email</div>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<template for:each={contactsRecord} for:item="con">
+					<tr class="slds-hint-parent" key={con.Id}>
+						<td>
+							<div class="slds-truncate">{con.FirstName}</div>
+						</td>
+						<td>
+							<div class="slds-truncate">{con.LastName}</div>
+						</td>
+						<td>
+							<div class="slds-truncate">
+								<lightning-formatted-phone value={con.Phone} ></lightning-formatted-phone>
+							</div>
+						</td>
+						<td>
+							<div class="slds-truncate">
+								<lightning-formatted-email value={con.Email} ></lightning-formatted-email>
+							</div>
+						</td>
+					</tr>
+				</template>
+			</tbody>
+		</table>
+	</div>
+   -->
+</template>

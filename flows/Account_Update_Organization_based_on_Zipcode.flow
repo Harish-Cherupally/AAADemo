@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>53.0</apiVersion>
+    <assignments>
+        <name>Update_account_Org_from_Zipcode_Organization</name>
+        <label>Update account Org from Zipcode Organization</label>
+        <locationX>1035</locationX>
+        <locationY>460</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Organization__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Zip_Codes.Organization__c</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>If Zipcode not found then Account organization is updated with null value</description>
+        <name>Update_account_Org_from_Zipcode_Organization_0</name>
+        <label>Update account Org from Zipcode Organization</label>
+        <locationX>718</locationX>
+        <locationY>251</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Organization__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <description>Creating Decision based on 
+1.If zipcode not found
+2.If zipcode found</description>
+        <name>Decision</name>
+        <label>Decision</label>
+        <locationX>1107</locationX>
+        <locationY>185</locationY>
+        <defaultConnector>
+            <targetReference>Update_account_Org_from_Zipcode_Organization</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>ZipCode_Not_Found</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Zip_Codes</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_account_Org_from_Zipcode_Organization_0</targetReference>
+            </connector>
+            <label>ZipCode Not Found</label>
+        </rules>
+    </decisions>
+    <description>Created By : Hitesh Nimje
+Description : Account object:- This flow update Organization field on account Object based on Zipcode(Insert/update)
+JIRA Story : A3SHLTO-139
+Modification History : 4</description>
+    <interviewLabel>Account Update Organization based on Zipcode {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Account Update Organization based on Zipcode</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Retrieving Zipcode from Zip code Object  storing in a variable</description>
+        <name>Get_Zip_Codes</name>
+        <label>Get Zip Codes</label>
+        <locationX>755</locationX>
+        <locationY>31</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Decision</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.ShippingPostalCode</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Zip_Code__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Name</queriedFields>
+        <queriedFields>Organization__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>215</locationX>
+        <locationY>78</locationY>
+        <connector>
+            <targetReference>Get_Zip_Codes</targetReference>
+        </connector>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>ShippingPostalCode</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>Account</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

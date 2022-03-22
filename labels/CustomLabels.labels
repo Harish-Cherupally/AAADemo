@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>A3SH_Covid_Response_Page_URL</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>A3SH_Covid_Response_Page_URL</shortDescription>
+        <value>https://smarthomesurvey.secure.force.com/A3SH_CovidEmailResponse?saId=</value>
+    </labels>
+    <labels>
+        <fullName>A3SH_CryptoKey</fullName>
+        <categories>Don&apos;t Change</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>A3SH_CryptoKey</shortDescription>
+        <value>a3sh@Crypt!Encry</value>
+    </labels>
+    <labels>
+        <fullName>A3_Dispatch_Policy_Id</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>A3 Dispatch Policy Id</shortDescription>
+        <value>a2R03000000l0Ur</value>
+    </labels>
+    <labels>
+        <fullName>AAA_sales_Numbr</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AAA sales Numbr</shortDescription>
+        <value>435345678</value>
+    </labels>
+    <labels>
+        <fullName>AcceptTerms</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AcceptTerms</shortDescription>
+        <value>YES,ACCEPT,YEP,YEAH,INTERESTED</value>
+    </labels>
+    <labels>
+        <fullName>CRM_Superhero</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CRM Superhero assigning to Task</shortDescription>
+        <value>0056g000004asW8AAI</value>
+    </labels>
+    <labels>
+        <fullName>Case_Installation_RecordType_Id</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case Installation RecordType Id</shortDescription>
+        <value>0124v000001yTRJ</value>
+    </labels>
+    <labels>
+        <fullName>Contains_UserId_of_CRM_Supehero</fullName>
+        <categories>Id</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Contains UserId of CRM Supehero</shortDescription>
+        <value>0056g000004asW8</value>
+    </labels>
+    <labels>
+        <fullName>Dealer_ServiceAppointmentRecordTypeId</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Dealer ServiceAppointmentRecordTypeId</shortDescription>
+        <value>012030000008mdvAAA</value>
+    </labels>
+    <labels>
+        <fullName>Dealer_WorkOrderRecordTypeID</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Dealer WorkOrderRecordTypeID</shortDescription>
+        <value>012030000008mbQAAQ</value>
+    </labels>
+    <labels>
+        <fullName>Instance_URL</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Instance URL</shortDescription>
+        <value>https://a3smarthome--crdev.lightning.force.com/lightning/</value>
+    </labels>
+    <labels>
+        <fullName>LA_Chat_Body_ChatWindowAgent_04I4v000000oLkZ_2914661</fullName>
+        <categories>Snap-ins</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LA_Chat_Body_ChatWindowAgent_04I4v000000oLkZ_2914661</shortDescription>
+        <value>AAA Smart Home</value>
+    </labels>
+    <labels>
+        <fullName>LA_Chat_ExtendedHeader_ChatStateHeaderGreeting_04I4v000000oLkZ_6420023</fullName>
+        <categories>Snap-ins</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LA_Chat_ExtendedHeader_ChatStateHeaderGreeting_04I4v000000oLkZ_6420023</shortDescription>
+        <value>Thank you for using AAA Smart Home self scheduler. Please follow the prompts to schedule your appointment.</value>
+    </labels>
+    <labels>
+        <fullName>Level1_RepairServiceWorkTypeId</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Level1 RepairServiceWorkTypeId</shortDescription>
+        <value>08q030000008PwY</value>
+    </labels>
+    <labels>
+        <fullName>Level2_RepairServiceWorkTypeId</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Level2 RepairServiceWorkTypeId</shortDescription>
+        <value>08q030000008Pwa</value>
+    </labels>
+    <labels>
+        <fullName>Record_Default_owner_id</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Default owner id</shortDescription>
+        <value>0056g00000282F2</value>
+    </labels>
+    <labels>
+        <fullName>RejectTerms</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>RejectTerms</shortDescription>
+        <value>NO,REJECT,NOT INTERESTED</value>
+    </labels>
+    <labels>
+        <fullName>Scheduling_Policy_Id</fullName>
+        <categories>Self Scheduling Policy Id</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Self Scheduling Policy Id</shortDescription>
+        <value>a2R4v0000041jHBEAY</value>
+    </labels>
+    <labels>
+        <fullName>Site_AccountId</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Site AccountId</shortDescription>
+        <value>0124v000001yTIrAAM</value>
+    </labels>
+    <labels>
+        <fullName>Standard_PriceBookId</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Standard PriceBookId</shortDescription>
+        <value>01s6g000001mrOkAAI</value>
+    </labels>
+    <labels>
+        <fullName>WorkOrder_MasterRecordtypeId</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>WorkOrder_MasterRecordtypeId</shortDescription>
+        <value>012030000008ms7</value>
+    </labels>
+    <labels>
+        <fullName>Work_Type_Id</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Work Type Id</shortDescription>
+        <value>xxx</value>
+    </labels>
+</CustomLabels>

@@ -1,0 +1,44 @@
+<apex:component controller="A3SH_EmailTempController" access="global">
+    <html>
+        
+        <head>
+        </head> 
+        <body>
+            <apex:outputText value="Please find the status of onboarding for New Customers processed today.">
+            </apex:outputText>
+            <br/> <br/>
+            <apex:dataTable value="{!newContObj}" var="Fssr" cellpadding="4" border="1">
+                <apex:column >
+                    <apex:facet name="header"> Customer Number</apex:facet>   
+                    {!Fssr.CustomerNumber__c}
+                    </apex:column>
+                 <apex:column >
+                    <apex:facet name="header"> Stages</apex:facet>   
+                    {!Fssr.Stages__c}
+                </apex:column>
+                 <apex:column >
+                    <apex:facet name="header"> Alarm</apex:facet>   
+                    {!Fssr.Alarm__c}
+                </apex:column>                
+            </apex:dataTable>  
+            <br/><br/><br/>
+            
+            <apex:outputText value="Please find below list of Existing Customers for whom there might be updates required on Stages and Alarm.com">
+            </apex:outputText>
+            <br/> <br/>
+            
+            <apex:dataTable value="{!existContObj}" var="Fssr" cellpadding="4" border="1">
+                <apex:column >
+                    <apex:facet name="header"> Customer Number</apex:facet>   
+                    {!Fssr.CustomerNumber__c}
+                </apex:column>
+            </apex:dataTable>  
+            <br/><br/><br/>
+           
+            <div>
+                <span Style = "font :italic"> This is a system generated message. Please do not reply to this email. </span>    
+            </div>
+        </body>   
+    </html>
+    
+</apex:component>

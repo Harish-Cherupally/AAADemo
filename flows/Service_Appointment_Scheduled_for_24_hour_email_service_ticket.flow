@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>This will send email if Service Appointment schedulestarttime date and today&apos;s date difference is greater than 1 as part of Workflow -&quot;Send 24 Hour Appointment Reminder Email_Service Ticket &quot;</description>
+        <name>AAA_24_Hour_Appointment_Reminder_Email_Service</name>
+        <label>AAA 24 Hour Appointment Reminder Email Service</label>
+        <locationX>242</locationX>
+        <locationY>408</locationY>
+        <actionName>ServiceAppointment.AAA_24_Hour_Appointment_Reminder_Email_Service</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>54.0</apiVersion>
+    <decisions>
+        <description>This will check if the Case Ticket Type is updated to Cancellation from Retention Queue and Customer is AAA and related to workflow criteria &quot;Send 24 Hour Appointment Reminder Email&quot; and &quot;Send 24 Hour Appointment Reminder Email_Service Ticket&quot;</description>
+        <name>Send_24_Day_Appointment_Reminder_Email</name>
+        <label>Send 24 Day Appointment Reminder Email</label>
+        <locationX>374</locationX>
+        <locationY>288</locationY>
+        <defaultConnectorLabel>Email not send</defaultConnectorLabel>
+        <rules>
+            <name>X24_ticket_Service_Appointment_subject_is_Service_Appointment</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Scheduledstartdate1</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>AAA_24_Hour_Appointment_Reminder_Email_Service</targetReference>
+            </connector>
+            <label>24 ticket Service Appointment subject is Service Appointment</label>
+        </rules>
+    </decisions>
+    <description>This flow will contain all Email Alerts and respective actions which moved from Workflow/PB as part of A3SHCRSF3-198
+1. Workflow: Send 24 Hour Appointment Reminder Email_Service Ticket</description>
+    <formulas>
+        <name>Scheduledstartdate1</name>
+        <dataType>Boolean</dataType>
+        <expression>DATEVALUE({!$Record.SchedStartTime}) - TODAY() &gt;= 1</expression>
+    </formulas>
+    <interviewLabel>Service Appointment: Scheduled for 24 hour email service ticket {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Service Appointment: Scheduled for 24 hour email service ticket</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Status</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Scheduled</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Subject</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Service Appointment</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>In_Scheduler__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>ServiceAppointment</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <scheduledPaths>
+            <name>Send_24_Hour_Appointment_Reminder_Email_service_ticket</name>
+            <connector>
+                <targetReference>Send_24_Day_Appointment_Reminder_Email</targetReference>
+            </connector>
+            <label>Send 24 Hour Appointment Reminder Email service ticket</label>
+            <offsetNumber>1</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
+            <recordField>SchedStartTime</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Draft</status>
+</Flow>

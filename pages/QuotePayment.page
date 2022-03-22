@@ -1,0 +1,207 @@
+<apex:page standardController="SBQQ__Quote__c"  extensions="Quotetemplateview">
+    <style>
+        .zcontainer {
+        position: relative;
+        width: 100%;
+        height:10%;
+        overflow: hidden;
+        padding-top: 70%; /* 16:9 Aspect Ratio */
+        }
+        
+        .responsive-iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+        overflow: hidden;
+        }
+        #checkout-payment-continue {
+        display: hidden;
+        }
+        
+        #userinfo {
+        margin: 10px  10px 10px 6px;
+        font-size:45px;
+        background-color:#F2F2F2;
+        }
+    </style>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
+    
+    <div>
+        <input type="text" id="Authorization" name="Authorization" placeholder="Bearer "/>
+        <input type="text" id="ApiKey" name="APIKey" placeholder="Apikey"/>
+        <input type="text" id="SessionToken" name="SessionToken" placeholder="session"/>
+        <input type="text" id="TimeStamp" name="TimeStamp" placeholder="timestamp"/>
+        <input type="text" id="MessageID" name="MessageID" placeholder="messageId"/>
+        <input type="text" id="billingAcct" name="BillingAcct" placeholder="BillingAccount"/>
+    </div>
+    
+    
+    <script>
+    
+    
+    
+    function performSessionRequest(e) {
+        var params = JSON.stringify({ billaccount: "salesforce"});
+        
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    var obj = JSON.parse(xhr.responseText);        
+                    
+                    document.getElementById('Authorization').value = obj.bearer; 
+                    document.getElementById('SessionToken').value = obj.session; 
+                    document.getElementById('ApiKey').value = obj.apikey; 
+                    document.getElementById('TimeStamp').value = obj.timestamp;  
+                    document.getElementById('MessageID').value = obj.messageid; 
+                    document.getElementById('billingAcct').value = obj.billingAcct;  
+                } else if (xhr.status == 404) {
+                    document.getElementById('Authorization').value = 'Not logged in!'; 
+                    
+                } else {
+                    document.getElementById('Authorization').value = 'Something went wrong'; 
+                    
+                }
+            }
+        };
+        xhr.open('POST', 'https://ene1rj5or3a7o2z.m.pipedream.net',true);
+        
+        xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+        
+        xhr.send(params);
+        
+    }   
+    
+    function Submit() {
+        var frame = document.getElementById('billerUIiFrame'); // get Iframe by Id
+        // Pass values to the Iframe
+        frame.contentWindow.postMessage({
+            'Authorization': document.getElementById("Authorization").value,
+            'APIKey': document.getElementById("ApiKey").value,
+            'SessionToken': document.getElementById("SessionToken").value,
+            'RequestTimeStamp': document.getElementById("TimeStamp").value,
+            'MessageId': document.getElementById("MessageID").value,
+        }, "*");
+        
+        
+    }
+    
+    function performWalletCreate(e) {
+        var payment =  document.getElementById('Payment').value;
+        var email =  document.getElementById('Email').value;
+        var name =  document.getElementById('Name').value;
+        var zip =  document.getElementById('Zip').value; 
+        var ftoken = document.getElementById('ftoken').value;
+        var billingAcct = document.getElementById("billingAcct").value;
+        var params = JSON.stringify({ billingAcct: billingAcct, fundingacct: ftoken, payment:payment, email:email, name:name, zip:zip });
+        
+        var xhr = new XMLHttpRequest();
+        
+        
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    var obj = JSON.parse(xhr.responseText);
+                    document.getElementById('payback').value = obj.confirmation +"|"+obj.authstat+"|"+obj.fundingmethod+"|"+obj.statuscode; 
+                    
+                    
+                } else if (xhr.status == 404) {
+                    document.getElementById('session').value = 'Something went wrong!'; 
+                    
+                } else {
+                    document.getElementById('session').value = 'Something went wrong!'; 
+                    
+                }
+            }
+        };
+        xhr.open('POST', 'https://endn64gry8umm2b.m.pipedream.net',true);
+        
+        xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+        
+        xhr.send(params);
+        
+    }   
+    
+    
+    window.addEventListener('message', function (event) {
+        if (event.origin !== "https://billerpayapi.clienttestmatrix.com"||event.data.Message === "") 
+            return;
+        const status = JSON.parse(event.data.Message);
+        const result = JSON.stringify(status.result);
+        const statusm = JSON.parse(result);
+        const fundingAccountValidation = JSON.stringify(status.fundingAccountValidationResult);
+        const fundtokenValue = JSON.parse(fundingAccountValidation);
+        const fundingAccount = fundtokenValue.fundingAccount;
+        const statusMessage = statusm.statusMessages;
+        const scode = JSON.stringify(statusMessage);
+        const code = JSON.parse(scode);
+        console.log(code[0].code);
+        if(code[0].code === 136 || code[0].code === 100){
+            document.getElementById('ftoken').value =fundingAccount.fundingAccountToken; 
+            
+            performWalletCreate();
+        }else{
+            document.getElementById('ftoken').value =event.data.Message;   
+            console.log(message);
+        }
+    }, false)
+    
+    
+    //window.addEventListener('load', (event) => {
+    // performPostRequest().then(performSessionRequest);
+    //  performSessionRequest();
+    //}
+    
+    
+    
+    
+    //});
+    window.onload = performSessionRequest; 
+    
+    </script>
+    
+  
+    <div class="form-group">
+        <label for="Payment">Payment:</label>
+        <input class="form-control" type="text" id="Payment" name="PaymentID" placeholder="Enter Payment Amount" value= "{!quote.Equipment_Down_Payment_Amount__c}"/>
+    </div>
+    <div class="form-group">
+        <label for="Name">Name:</label>
+        <input class="form-control" type="text" id="Name" name="NameID" placeholder="Enter Name" value= "{!quote.SBQQ__PrimaryContact__r.Name}"/> 
+    </div> 
+    <div class="form-group">
+        <label for="Email">Email:</label>
+        <input class="form-control" type="text" id="Email" name="EmailID" placeholder="Enter Email" value= "{!quote.SBQQ__PrimaryContact__r.Email}"/> 
+       
+    </div>       
+    <div class="form-group">
+        <label for="Zip">Zip Code:</label>
+        <input class="form-control" type="text" id="Zip" name="ZipcodeID" placeholder="Enter Zipcode"  value= "{!quote.SBQQ__Account__r.BillingPostalCode}"/>
+    </div>      
+    
+    
+      
+    
+     <div class="form-group">
+        <button onclick="Submit()" class="btn btn-primary">Place Order</button>
+        <input class="form-control" type="text" id="ftoken" name="ftoken" value="When Successful Funding Token will appear here"/>
+        <input class="form-control" type="text" id="payback" name="payback" value="When Successful Payment Authorization will appear here"/>
+    </div>
+      
+    <div class="zcontainer">    
+        
+        <iframe id="billerUIiFrame" class="responsive-iframe" src="https://billerpayapi.clienttestmatrix.com/funding/carddetails" ></iframe>
+        
+    </div>
+</apex:page>

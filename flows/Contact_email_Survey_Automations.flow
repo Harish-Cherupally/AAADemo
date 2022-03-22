@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Email for customer feedback</description>
+        <name>a3_smart_home_0_0_0</name>
+        <label>A3 smart home</label>
+        <locationX>578</locationX>
+        <locationY>455</locationY>
+        <actionName>Contact.A3_Smart_Home_Member_Survey</actionName>
+        <actionType>emailAlert</actionType>
+        <faultConnector>
+            <targetReference>A3_smart_home1</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>Email for customer feedback</description>
+        <name>AAA_smart_home_member_survey</name>
+        <label>AAA smart home member survey</label>
+        <locationX>50</locationX>
+        <locationY>455</locationY>
+        <actionName>Contact.AAA_Smart_Home_Member_Survey</actionName>
+        <actionType>emailAlert</actionType>
+        <faultConnector>
+            <targetReference>AAA_smart_home_member_survey1</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>54.0</apiVersion>
+    <decisions>
+        <description>This will send the email to customers for their feedback.</description>
+        <name>AAA_smart_home_Email</name>
+        <label>AAA smart home Email</label>
+        <locationX>578</locationX>
+        <locationY>335</locationY>
+        <defaultConnectorLabel>No Email</defaultConnectorLabel>
+        <rules>
+            <name>AAA_smart_home</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Send_Member_Survey__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Date_Member_Survey_Sent__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Date_Member_Survey_Responded__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.customerUserDef_PickList__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>AAA Smart Home</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>AAA_smart_home_member_survey</targetReference>
+            </connector>
+            <label>AAA smart home</label>
+        </rules>
+        <rules>
+            <name>A3_smart_home</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Send_Member_Survey__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Date_Member_Survey_Sent__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Date_Member_Survey_Responded__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.customerUserDef_PickList__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>A3 Smart Home</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>a3_smart_home_0_0_0</targetReference>
+            </connector>
+            <label>A3 smart home</label>
+        </rules>
+    </decisions>
+    <description>This flow contains all email alerts and actions which moved from process builder as part of A3SHCRSF3-198
+Process Builder - Contact Survey Automations</description>
+    <formulas>
+        <description>This will let you know that Contact is getting inserted.</description>
+        <name>isNew</name>
+        <dataType>Boolean</dataType>
+        <expression>isNew()</expression>
+    </formulas>
+    <interviewLabel>Contact Survey Automations {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Contact email  Survey Automations</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>A3_smart_home1</name>
+        <label>A3 smart home1</label>
+        <locationX>842</locationX>
+        <locationY>575</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown while Sending Email as part of A3 smart home</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Contact: Email Alerts and Respective Actions</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>AAA_smart_home_member_survey1</name>
+        <label>AAA smart home member survey1</label>
+        <locationX>314</locationX>
+        <locationY>575</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown while Sending Email as part of AAA smart home member survey</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Contact: Email Alerts and Respective Actions</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <start>
+        <locationX>452</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>AAA_smart_home_Email</targetReference>
+        </connector>
+        <object>Contact</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

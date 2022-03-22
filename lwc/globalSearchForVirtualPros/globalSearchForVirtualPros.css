@@ -1,0 +1,6 @@
+abbr.slds-required {
+    display: none;
+}
+div.slds-has-error .slds-form-element__help {
+    display: none;
+}

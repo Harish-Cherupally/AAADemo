@@ -1,0 +1,145 @@
+<apex:page standardController="case" showHeader="false" sidebar="false" extensions="SurveyPageExtension" >
+    
+    <apex:slds />
+    
+    <apex:form id="theform">
+        <head>
+            
+            <style>
+                .checked {
+                color: orange; 
+                }
+                
+                .center {
+                margin: auto;
+                width: 60%;
+                border: 3px solid #73AD21;
+                padding: 10px;
+                font-family: Arial, sans-serif;
+                }
+                
+            </style>
+        </head>
+        <body>
+            <div class="center">
+                
+                <center>
+                    <h2 style ='font-size:2rem;font-family: Arial, sans-serif;' >  How happy were you with the support that you received from {!OwnerSubString}?</h2>
+                </center>
+                
+                <center>
+                    <b style ='font-size: 2rem;font-family: Arial, sans-serif;'>{!case_Obj.AR_Customer_Userdef__c} Smart Home Satisfaction Survey</b>
+                </center>
+                <br/>
+                <table style="border-collapse: separate;border-spacing: 0 1em;">
+                    <tr>
+                        <td colspan="2" style="text-align: center;" > 
+                            <apex:outputField value="{!case_Obj.Company__c}"/> 
+                        </td>
+                    </tr>
+                    
+                    
+                    <tr>
+                        <td style="text-align: left;font-family: Arial, sans-serif;">How satisfied are you with {!case_Obj.AR_Customer_Userdef__c} Smart Home? </td> 
+                        <td style="text-align: right;"> <apex:inputField style="position: relative;width: 200px;padding: 2px;background: #9bc7de;color: #fff;outline: none;cursor: pointer;font-weight: bold;" value="{!customer_survey_obj.How_satisfied_are_you_with_A3_Smart_Home__c}" required="true"/>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="text-align: left;font-family: Arial, sans-serif;">How likely are you to recommend {!case_Obj.AR_Customer_Userdef__c} Smart Home?</td>
+                        <td style="text-align: right;">   <apex:inputField style="position: relative;width: 200px;padding: 2px;background: #9bc7de;color: #fff;outline: none;cursor: pointer;font-weight: bold;" value="{!customer_survey_obj.How_likely_are_you_to_recommend_A3_Smart__c}" required="true"/>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="text-align: left;font-family: Arial, sans-serif;">Reasons for your score:</td>
+                        <td style="text-align: right;">    <apex:inputField style="position: relative;width: 200px;padding: 2px;background: #9bc7de;color: #fff;outline: none;cursor: pointer;font-weight: bold;" value="{!customer_survey_obj.Reasons_for_your_score__c}" required="true"/>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="2" style="text-align: left;font-family: Arial, sans-serif;"><b>
+                            Based on your experience with {!OwnerSubString}, please indicate your satisfaction with the following:<br/>
+                            Mark the "N/A" option if you do not recall interacting with the team referenced.
+                            </b>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="text-align: left;font-family: Arial, sans-serif;"> Satisfaction with Member Experience:</td>
+                        <td style="text-align: right;">    <apex:inputField style="position: relative;width: 200px;padding: 2px;background: #9bc7de;color: #fff;outline: none;cursor: pointer;font-weight: bold;" value="{!customer_survey_obj.Satisfaction_with_Customer_Care_team__c}" required="true"/>              </td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="text-align: left;font-family: Arial, sans-serif;"> Experience with billing and accounting:</td>
+                        <td style="text-align: right;">    <apex:inputField style="position: relative;width: 200px;padding: 2px;background: #9bc7de;color: #fff;outline: none;cursor: pointer;font-weight: bold;" value="{!customer_survey_obj.Experience_with_billing_and_accounting__c}" required="true"/>           </td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="text-align: left;font-family: Arial, sans-serif;"> Helpfulness of Member Experience: </td>
+                        <td style="text-align: right;">  <apex:inputField style="position: relative;width: 200px;padding: 2px;background: #9bc7de;color: #fff;outline: none;cursor: pointer;font-weight: bold;" value="{!customer_survey_obj.Helpfulness_of_the_Customer_Care_team__c}" required="true"/>  </td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="text-align: left;font-family: Arial, sans-serif;">Responsiveness of Member Experience:</td>
+                        <td style="text-align: right;">   <apex:inputField style="position: relative;width: 200px;padding: 2px;background: #9bc7de;color: #fff;outline: none;cursor: pointer;font-weight: bold;" value="{!customer_survey_obj.Responsiveness_of_the_Customer_Care_team__c}" required="true"/>  </td>
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="2" style="text-align: left;font-family: Arial, sans-serif;"> <b>Please indicate your satisfaction with the following aspects of your home security system:</b></td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="text-align: left;font-family: Arial, sans-serif;"> Ease of use:</td>
+                        <td style="text-align: right;">  <apex:inputField style="position: relative;width: 200px;padding: 2px;background: #9bc7de;color: #fff;outline: none;cursor: pointer;font-weight: bold;" value="{!customer_survey_obj.Ease_of_use__c}" required="true"/>  </td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="text-align: left;font-family: Arial, sans-serif;">Day-to-day functionality of your home security system: </td>
+                        <td style="text-align: right;"><apex:inputField style="position: relative;width: 200px;padding: 2px;background: #9bc7de;color: #fff;outline: none;cursor: pointer;font-weight: bold;" value="{!customer_survey_obj.Day_to_day_functionality_of_the_product__c}" required="true"/> 
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="text-align: left;font-family: Arial, sans-serif;"> <b>Do you have any additional comments or feedback for us?</b> </td>
+                        <td style="text-align: right;"><apex:inputField style="position: relative;width: 200px;padding: 2px;background: #9bc7de;color: #fff;outline: none;cursor: pointer;font-weight: bold;" value="{!customer_survey_obj.Additional_comments_or_feedback_for_us__c}" required="true"/>  </td>
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="2" style="text-align: center;" >   
+                            
+                            <apex:commandButton value="SAVE" action="{!updateCaseData}"/> 
+                            
+                        </td>  
+                    </tr>
+                    
+                </table>
+                
+                
+                
+            </div>
+        </body>
+    </apex:form>
+    <script>
+    function Rating(id){
+        console.log('Inside ***'); 
+        for(var i = 1;i<= 5;i++ ){
+            if(document.getElementById(i).classList.contains("checked"))
+                document.getElementById(i).classList.remove("checked");
+            
+        }
+        for(var i = 1;i<= id;i++ ){
+            document.getElementById(i).classList.add("checked");
+        }     
+    }
+    
+    
+    function openWebpage(){
+        
+        window.parent.location = 'https://a3smarthome.com/';
+        
+    }
+    
+
+    </script>
+</apex:page>

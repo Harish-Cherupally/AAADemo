@@ -1,0 +1,858 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Additional_comments_or_feedback_for_us__c</fullName>
+        <externalId>false</externalId>
+        <label>Additional comments or feedback for us</label>
+        <length>131072</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Case__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Case</label>
+        <referenceTo>Case</referenceTo>
+        <relationshipLabel>Customer Surveys</relationshipLabel>
+        <relationshipName>Customer_Surveys</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Customer_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Case__r.Contact.FirstName + &quot; &quot; + Case__r.Contact.LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Customer Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Day_to_day_functionality_of_the_product__c</fullName>
+        <externalId>false</externalId>
+        <label>Day to day functionality of the product</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>5.Extremely satisfied</fullName>
+                    <default>true</default>
+                    <label>5.Extremely satisfied</label>
+                </value>
+                <value>
+                    <fullName>4.Somewhat satisfied</fullName>
+                    <default>false</default>
+                    <label>4.Somewhat satisfied</label>
+                </value>
+                <value>
+                    <fullName>3.Neither satisfied nor dissatisfied</fullName>
+                    <default>false</default>
+                    <label>3.Neither satisfied nor dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>2.Somewhat dissatisfied</fullName>
+                    <default>false</default>
+                    <label>2.Somewhat dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>1.Extremely dissatisfied</fullName>
+                    <default>false</default>
+                    <label>1.Extremely dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>1.Extremely satisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>1.Extremely satisfied</label>
+                </value>
+                <value>
+                    <fullName>2.Somewhat satisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>2.Somewhat satisfied</label>
+                </value>
+                <value>
+                    <fullName>4.Somewhat dissatisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>4.Somewhat dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>5.Extremely dissatisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>5.Extremely dissatisfied</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Ease_of_use__c</fullName>
+        <externalId>false</externalId>
+        <label>Ease of use</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>5.Extremely satisfied</fullName>
+                    <default>true</default>
+                    <label>5.Extremely satisfied</label>
+                </value>
+                <value>
+                    <fullName>4.Somewhat satisfied</fullName>
+                    <default>false</default>
+                    <label>4.Somewhat satisfied</label>
+                </value>
+                <value>
+                    <fullName>3.Neither satisfied nor dissatisfied</fullName>
+                    <default>false</default>
+                    <label>3.Neither satisfied nor dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>2.Somewhat dissatisfied</fullName>
+                    <default>false</default>
+                    <label>2.Somewhat dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>1.Extremely dissatisfied</fullName>
+                    <default>false</default>
+                    <label>1.Extremely dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>1.Extremely satisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>1.Extremely satisfied</label>
+                </value>
+                <value>
+                    <fullName>2.Somewhat satisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>2.Somewhat satisfied</label>
+                </value>
+                <value>
+                    <fullName>4.Somewhat dissatisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>4.Somewhat dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>5.Extremely dissatisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>5.Extremely dissatisfied</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Experience_with_billing_and_accounting__c</fullName>
+        <externalId>false</externalId>
+        <label>Experience with billing and accounting</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>5.Extremely satisfied</fullName>
+                    <default>true</default>
+                    <label>5.Extremely satisfied</label>
+                </value>
+                <value>
+                    <fullName>4.Somewhat satisfied</fullName>
+                    <default>false</default>
+                    <label>4.Somewhat satisfied</label>
+                </value>
+                <value>
+                    <fullName>3.Neither satisfied nor dissatisfied</fullName>
+                    <default>false</default>
+                    <label>3.Neither satisfied nor dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>2.Somewhat dissatisfied</fullName>
+                    <default>false</default>
+                    <label>2.Somewhat dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>1.Extremely dissatisfied</fullName>
+                    <default>false</default>
+                    <label>1.Extremely dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>N/A</fullName>
+                    <default>false</default>
+                    <label>N/A</label>
+                </value>
+                <value>
+                    <fullName>1.Extremely satisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>1.Extremely satisfied</label>
+                </value>
+                <value>
+                    <fullName>2.Somewhat satisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>2.Somewhat satisfied</label>
+                </value>
+                <value>
+                    <fullName>4.Somewhat dissatisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>4.Somewhat dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>5.Extremely dissatisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>5.Extremely dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>6.N/A</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>6.N/A</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Friendliness_of_the_Customer_Care_team__c</fullName>
+        <externalId>false</externalId>
+        <label>Friendliness of the Customer Care team</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>5.Extremely satisfied</fullName>
+                    <default>true</default>
+                    <label>5.Extremely satisfied</label>
+                </value>
+                <value>
+                    <fullName>4.Somewhat satisfied</fullName>
+                    <default>false</default>
+                    <label>4.Somewhat satisfied</label>
+                </value>
+                <value>
+                    <fullName>3.Neither satisfied nor dissatisfied</fullName>
+                    <default>false</default>
+                    <label>3.Neither satisfied nor dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>2.Somewhat dissatisfied</fullName>
+                    <default>false</default>
+                    <label>2.Somewhat dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>1.Extremely dissatisfied</fullName>
+                    <default>false</default>
+                    <label>1.Extremely dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>N/A</fullName>
+                    <default>false</default>
+                    <label>N/A</label>
+                </value>
+                <value>
+                    <fullName>1.Extremely satisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>1.Extremely satisfied</label>
+                </value>
+                <value>
+                    <fullName>2.Somewhat satisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>2.Somewhat satisfied</label>
+                </value>
+                <value>
+                    <fullName>4.Somewhat dissatisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>4.Somewhat dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>5.Extremely dissatisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>5.Extremely dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>6.N/A</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>6.N/A</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Helpfulness_of_the_Customer_Care_team__c</fullName>
+        <externalId>false</externalId>
+        <label>Helpfulness of the Customer Care team</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>5.Extremely satisfied</fullName>
+                    <default>true</default>
+                    <label>5.Extremely satisfied</label>
+                </value>
+                <value>
+                    <fullName>4.Somewhat satisfied</fullName>
+                    <default>false</default>
+                    <label>4.Somewhat satisfied</label>
+                </value>
+                <value>
+                    <fullName>3.Neither satisfied nor dissatisfied</fullName>
+                    <default>false</default>
+                    <label>3.Neither satisfied nor dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>2.Somewhat dissatisfied</fullName>
+                    <default>false</default>
+                    <label>2.Somewhat dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>1.Extremely dissatisfied</fullName>
+                    <default>false</default>
+                    <label>1.Extremely dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>N/A</fullName>
+                    <default>false</default>
+                    <label>N/A</label>
+                </value>
+                <value>
+                    <fullName>1.Extremely satisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>1.Extremely satisfied</label>
+                </value>
+                <value>
+                    <fullName>2.Somewhat satisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>2.Somewhat satisfied</label>
+                </value>
+                <value>
+                    <fullName>4.Somewhat dissatisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>4.Somewhat dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>5.Extremely dissatisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>5.Extremely dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>6.N/A</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>6.N/A</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>How_likely_are_you_to_recommend_A3_Smart__c</fullName>
+        <externalId>false</externalId>
+        <label>How likely are you to recommend A3 Smart</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>0</fullName>
+                    <default>false</default>
+                    <label>0</label>
+                </value>
+                <value>
+                    <fullName>1</fullName>
+                    <default>false</default>
+                    <label>1</label>
+                </value>
+                <value>
+                    <fullName>2</fullName>
+                    <default>false</default>
+                    <label>2</label>
+                </value>
+                <value>
+                    <fullName>3</fullName>
+                    <default>false</default>
+                    <label>3</label>
+                </value>
+                <value>
+                    <fullName>4</fullName>
+                    <default>false</default>
+                    <label>4</label>
+                </value>
+                <value>
+                    <fullName>5</fullName>
+                    <default>false</default>
+                    <label>5</label>
+                </value>
+                <value>
+                    <fullName>6</fullName>
+                    <default>false</default>
+                    <label>6</label>
+                </value>
+                <value>
+                    <fullName>7</fullName>
+                    <default>false</default>
+                    <label>7</label>
+                </value>
+                <value>
+                    <fullName>8</fullName>
+                    <default>false</default>
+                    <label>8</label>
+                </value>
+                <value>
+                    <fullName>9</fullName>
+                    <default>false</default>
+                    <label>9</label>
+                </value>
+                <value>
+                    <fullName>10</fullName>
+                    <default>false</default>
+                    <label>10</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>How_satisfied_are_you_with_A3_Smart_Home__c</fullName>
+        <externalId>false</externalId>
+        <label>How satisfied are you with A3 Smart Home</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>5.Extremely satisfied</fullName>
+                    <default>true</default>
+                    <label>5.Extremely satisfied</label>
+                </value>
+                <value>
+                    <fullName>4.Somewhat satisfied</fullName>
+                    <default>false</default>
+                    <label>4.Somewhat satisfied</label>
+                </value>
+                <value>
+                    <fullName>3.Neither satisfied nor dissatisfied</fullName>
+                    <default>false</default>
+                    <label>3.Neither satisfied nor dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>2.Somewhat dissatisfied</fullName>
+                    <default>false</default>
+                    <label>2.Somewhat dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>1.Extremely dissatisfied</fullName>
+                    <default>false</default>
+                    <label>1.Extremely dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>(1) Extremely satisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>(1) Extremely satisfied</label>
+                </value>
+                <value>
+                    <fullName>(2)Somewhat satisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>(2)Somewhat satisfied</label>
+                </value>
+                <value>
+                    <fullName>(3)Neither satisfied nor dissatisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>(3)Neither satisfied nor dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>(4)Somewhat dissatisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>(4)Somewhat dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>(5)Extremely dissatisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>(5)Extremely dissatisfied</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Reasons_for_your_score__c</fullName>
+        <externalId>false</externalId>
+        <label>Reasons for your score</label>
+        <length>131072</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Responsiveness_of_the_Customer_Care_team__c</fullName>
+        <externalId>false</externalId>
+        <label>Responsiveness of the Customer Care team</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>5.Extremely satisfied</fullName>
+                    <default>true</default>
+                    <label>5.Extremely satisfied</label>
+                </value>
+                <value>
+                    <fullName>4.Somewhat satisfied</fullName>
+                    <default>false</default>
+                    <label>4.Somewhat satisfied</label>
+                </value>
+                <value>
+                    <fullName>3.Neither satisfied nor dissatisfied</fullName>
+                    <default>false</default>
+                    <label>3.Neither satisfied nor dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>2.Somewhat dissatisfied</fullName>
+                    <default>false</default>
+                    <label>2.Somewhat dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>1.Extremely dissatisfied</fullName>
+                    <default>false</default>
+                    <label>1.Extremely dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>N/A</fullName>
+                    <default>false</default>
+                    <label>N/A</label>
+                </value>
+                <value>
+                    <fullName>1.Extremely satisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>1.Extremely satisfied</label>
+                </value>
+                <value>
+                    <fullName>2.Somewhat satisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>2.Somewhat satisfied</label>
+                </value>
+                <value>
+                    <fullName>4.Somewhat dissatisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>4.Somewhat dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>5.Extremely dissatisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>5.Extremely dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>6.N/A</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>6.N/A</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Satisfaction_with_Customer_Care_team__c</fullName>
+        <externalId>false</externalId>
+        <label>Satisfaction with Customer Care team</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>5.Extremely satisfied</fullName>
+                    <default>true</default>
+                    <label>5.Extremely satisfied</label>
+                </value>
+                <value>
+                    <fullName>4.Somewhat satisfied</fullName>
+                    <default>false</default>
+                    <label>4.Somewhat satisfied</label>
+                </value>
+                <value>
+                    <fullName>3.Neither satisfied nor dissatisfied</fullName>
+                    <default>false</default>
+                    <label>3.Neither satisfied nor dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>2.Somewhat dissatisfied</fullName>
+                    <default>false</default>
+                    <label>2.Somewhat dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>1.Extremely dissatisfied</fullName>
+                    <default>false</default>
+                    <label>1.Extremely dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>N/A</fullName>
+                    <default>false</default>
+                    <label>N/A</label>
+                </value>
+                <value>
+                    <fullName>1.Extremely satisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>1.Extremely satisfied</label>
+                </value>
+                <value>
+                    <fullName>2.Somewhat satisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>2.Somewhat satisfied</label>
+                </value>
+                <value>
+                    <fullName>4.Somewhat dissatisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>4.Somewhat dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>5.Extremely dissatisfied</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>5.Extremely dissatisfied</label>
+                </value>
+                <value>
+                    <fullName>6.N/A</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>6.N/A</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>Customer Survey</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>How_satisfied_are_you_with_A3_Smart_Home__c</columns>
+        <columns>Satisfaction_with_Customer_Care_team__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>Member_Experience_Customer_Survey</fullName>
+        <filterScope>Queue</filterScope>
+        <label>Member Experience</label>
+        <queue>Member_Experience</queue>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <nameField>
+        <label>Customer Survey Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Customer Surveys</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

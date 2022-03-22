@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>53.0</apiVersion>
+    <assignments>
+        <description>This will update the Quote &quot;Credit Score Status&quot; to Approved</description>
+        <name>Update_Quote_Credit_Status_to_Approved</name>
+        <label>Update Quote Credit Status to Approved</label>
+        <locationX>50</locationX>
+        <locationY>695</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Related_Quote_Record.Credit_Score_Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Approved</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Quote_Records_with_Credit_Score_Status_field_updated</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>This will update the Quote &quot;Credit Score Status&quot; to Declined</description>
+        <name>Update_Quote_Credit_Status_to_Declined</name>
+        <label>Update Quote Credit Status to Declined</label>
+        <locationX>314</locationX>
+        <locationY>695</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Related_Quote_Record.Credit_Score_Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Declined</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Quote_Records_with_Credit_Score_Status_field_updated</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>This will check if the Credit Limit &gt; 600 or not</description>
+        <name>Check_if_Credit_Limit_is_greater_than_600</name>
+        <label>Check if Credit Limit is greater than 600</label>
+        <locationX>182</locationX>
+        <locationY>575</locationY>
+        <defaultConnector>
+            <targetReference>Update_Quote_Credit_Status_to_Declined</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Credit Limit &lt; 600</defaultConnectorLabel>
+        <rules>
+            <name>Credit_Limit_600</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.creditchecker__Average_Score__c</leftValueReference>
+                <operator>GreaterThanOrEqualTo</operator>
+                <rightValue>
+                    <numberValue>600.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Quote_Credit_Status_to_Approved</targetReference>
+            </connector>
+            <label>Credit Limit &gt; 600</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This will check whether the get record element has quotes or not</description>
+        <name>Check_whether_there_is_any_quote_record_or_not</name>
+        <label>Check whether there is any quote record or not</label>
+        <locationX>380</locationX>
+        <locationY>455</locationY>
+        <defaultConnectorLabel>Quote Doesn&apos;t Exist</defaultConnectorLabel>
+        <rules>
+            <name>Quote_Exists</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Related_Quote_Record</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Check_if_Credit_Limit_is_greater_than_600</targetReference>
+            </connector>
+            <label>Quote Exists</label>
+        </rules>
+    </decisions>
+    <description>This will update quote record with &quot;Credit Score Status&quot; upon receiving the Credit Report information based on A3SHLTO-145</description>
+    <interviewLabel>Credit Report: Update Quote Credit Score Status upon receiving completion of Credit Initiation {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Credit Report: Update Quote Credit Score Status upon receiving completion of Credit Initiation</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>This element will retrieve the quote record from Credit Report record</description>
+        <name>Get_Related_Quote_Record</name>
+        <label>Get Related Quote Record</label>
+        <locationX>380</locationX>
+        <locationY>335</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_whether_there_is_any_quote_record_or_not</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Quote__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>SBQQ__Quote__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>This will update Quote records with Credit Score Status field</description>
+        <name>Update_Quote_Records_with_Credit_Score_Status_field_updated</name>
+        <label>Update Quote Records with Credit Score Status field updated</label>
+        <locationX>182</locationX>
+        <locationY>911</locationY>
+        <inputReference>Get_Related_Quote_Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>254</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Related_Quote_Record</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>creditchecker__Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>creditchecker__Status__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Quote__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>creditchecker__Credit_Report__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

@@ -1,0 +1,113 @@
+<apex:page standardStylesheets="true" showHeader="false" controller="A3SH_CovidEmailResponseController" docType="html-5.0"  >
+    <apex:slds />
+    <center>
+        <apex:form id="form">
+            <apex:pageMessages rendered="{!IF(OR(NOT(ISBLANK(selectedValue)) , submittedBefore==true), true, false)}"></apex:pageMessages>
+            <apex:outputPanel id="parentPanel" rendered="{!!detailsSubmitted && !submittedBefore && !notValidURL}">
+                <table style="width: 600px;">
+                    <tbody>
+                        <tr>
+                            <td >
+                                <apex:image value="{!URLFOR($Resource.AAA)}" style="height:200px;" /><br/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table border="0" >
+                                    <tbody ><tr>
+                                        <td>
+                                            <h4 style="font-size: 16px;font-family: Arial;color:#000000;">
+                                                <p style="padding-left:10px;">
+                                                    <b><apex:outputText value="{!contactname}"></apex:outputText></b><br/>
+                                                    <apex:outputText value="{!street}"></apex:outputText><br/>
+                                                    <apex:outputText value="{!city}"></apex:outputText><br/>
+                                                    <apex:outputText value="{!state}"></apex:outputText><br/>
+                                                    <apex:outputText value="{!postalcode}"></apex:outputText><br/><br/>
+                                                    
+                                                    <b>Work Order Number&nbsp;:&nbsp;</b><apex:outputText value="{!workordernumber}"></apex:outputText><br/><br/>
+                                                </p>
+                                                <p style="padding-left:10px;padding-right:10px;">
+                                                    Please answer "yes" or "no" to the three questions below, and click the "Submit" button at the bottom of the page. Your responses will be recorded in our system. If you have any questions please feel free to call us at (800) 669-7779.
+                                                </p>
+                                            </h4>
+                                            
+                                            <br/>
+                                            <h4 style="font-size: 16px;font-family: Arial;color:#000000;">
+                                                <p style="padding-left:10px;padding-right:10px;">
+                                                    <b>Question 1:</b> Have you tested positive for COVID-19 in the last 14 days?<br/><br/>
+                                                </p>
+                                                <p style="padding-left:10px;padding-right:10px;">
+                                                    <b>Question 2:</b> Are you currently experiencing, or have you experienced any flu-like symptoms (cough, fever, shortness of breath) in the last 14 days?<br/><br/>
+                                                </p>
+                                                <p style="padding-left:10px;padding-right:5px;">
+                                                    <b>Question 3:</b> Have you had close contact (3-6 feet for 10 mins or more) with a person who has been confirmed with COVID-19 or suspected of having COVID-19 in the last 14 days?<br/><br/>
+                                                </p>
+                                            </h4>
+                                            
+                                            <apex:pageBlock id="pblock" mode="maindetail"  >
+                                                <apex:pageBlockSection columns="1">
+                                                    <b><apex:outputLabel value="Please select the option" style="font-size:16px;font-family: Arial;color:#000000;font-weight: bold;" /></b>
+                                                    <apex:actionRegion >
+                                                        <apex:selectRadio value="{!selectedValue}" layout="pageDirection" rendered="true" style="padding-left:10px;font-size:16px;font-family: Arial;display:block;border:none;" >
+                                                            <apex:selectOptions value="{!items}"/>
+                                                            <apex:actionSupport event="onchange"  action="{!updateSelectedValue}" reRender="pbsection,messages" status="refreshStatus" />
+                                                        </apex:selectRadio>
+                                                    </apex:actionRegion>
+                                                    <apex:outputPanel id="pbsection">
+                                                        <apex:pageMessages id="messages" rendered="{!IF(ISBLANK(selectedValue), true, false)}"></apex:pageMessages>
+                                                        <b><apex:outputLabel value="Please Indicate if you are a first responder or frontline  worker in the HealthCare Industry." rendered="{!isSelectedYes}" style="font-size:16px;font-family: Arial;color:#000000;font-weight: bold;padding-right:10px;" ><apex:outputText value="*" style="color:red;"></apex:outputText></apex:outputLabel>&nbsp;&nbsp;
+                                                            <br/><apex:inputTextarea value="{!moreDetails}" rendered="{!isSelectedYes}" required="true"  style="width:50%" styleClass="slds-input" html-placeholder="Enter more details here..." /></b>
+                                                    </apex:outputPanel>
+                                                    <apex:actionStatus id="refreshStatus" layout="block"  >
+                                                        <apex:facet name="start" > 
+                                                            <apex:outputPanel >
+                                                                <apex:outputLabel value="Please wait..." style="font-weight:bold;color:#DA291C;"/>
+                                                            </apex:outputPanel>
+                                                        </apex:facet>
+                                                    </apex:actionStatus>
+                                                    <apex:commandButton id="cmdbtn"  value="Submit" action="{!submitDetails}" reRender="pblock" style="font-size:16px;font-family: Arial;background:#DA291C;color:white;" status="refreshStatus" />
+                                                    
+                                                </apex:pageBlockSection>
+                                            </apex:pageBlock>
+                                        </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </apex:outputPanel>
+        </apex:form>
+    </center>
+    <style>
+        .messageTable{
+        display: inline-block;
+        color:black;
+        font-size :16px;
+        font-family: Arial;
+        }    
+        .bPageBlock .pbBody .dataCol {
+        border:none;
+        background:none;
+        color:black;
+        font-size :16px;
+        font-family: Arial;
+        }
+        .bPageBlock .pbBody .labelCol {
+        border:none;
+        background:none;
+        color:black;
+        font-size :16px;
+        font-family: Arial;
+        }
+        .data2Col{
+        border:none !important;
+        }
+    </style>
+    <script>
+    function changedValue(){
+        changedValueFunction();
+    }
+    </script>
+</apex:page>

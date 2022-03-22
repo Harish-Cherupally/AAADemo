@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <actionCalls>
+        <description>This action will call Lightning component which in deed navigates to Quotes Line Editor page</description>
+        <name>Navigate_to_Edit_lines</name>
+        <label>Navigate to Edit lines</label>
+        <locationX>803</locationX>
+        <locationY>1502</locationY>
+        <actionName>c:Quote_Navigate_To_EditLines</actionName>
+        <actionType>component</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>recordId</name>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </inputParameters>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <apiVersion>53.0</apiVersion>
+    <assignments>
+        <name>Assign_Error_Message</name>
+        <label>Assign Error Message</label>
+        <locationX>754</locationX>
+        <locationY>638</locationY>
+        <assignmentItems>
+            <assignToReference>IsInvalidInstallationType</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Preferred_Installation_Type_0</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Error_Message_0</name>
+        <label>Assign Error Message</label>
+        <locationX>50</locationX>
+        <locationY>758</locationY>
+        <assignmentItems>
+            <assignToReference>isNewCustomerandDealerInstall</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Preferred_Installation_Type_0</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Selected_Installation_Type_to_Quote</name>
+        <label>Assign Selected Installation Type to Quote</label>
+        <locationX>314</locationX>
+        <locationY>878</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Quote_Record.Installation_Type__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Installation_Type_0</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Quote_Record_0</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>This will pass all values from old quote to new quote</description>
+        <name>Assign_values_to_new_quote</name>
+        <label>Assign values to new quote</label>
+        <locationX>1194</locationX>
+        <locationY>638</locationY>
+        <assignmentItems>
+            <assignToReference>newQuoteRec.SBQQ__Primary__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Quote_Record.SBQQ__Primary__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>newQuoteRec.SBQQ__Opportunity2__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Quote_Record.SBQQ__Opportunity2__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>newQuoteRec.SBQQ__Account__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Quote_Record.SBQQ__Account__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>newQuoteRec.SBQQ__PriceBook__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Quote_Record.SBQQ__PriceBook__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>newQuoteRec.SBQQ__PricebookId__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Quote_Record.SBQQ__PricebookId__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>newQuoteRec.SBQQ__PrimaryContact__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Quote_Record.SBQQ__PrimaryContact__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>newQuoteRec.SBQQ__Type__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Quote_Record.SBQQ__Type__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Create_New_Quote</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>recordId variable will be updated with new quote Id</description>
+        <name>Update_recordId_variable_with_new_recordId</name>
+        <label>Update recordId variable with new recordId</label>
+        <locationX>1194</locationX>
+        <locationY>878</locationY>
+        <assignmentItems>
+            <assignToReference>recordId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>newQuoteRec.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Quote_Record</targetReference>
+        </connector>
+    </assignments>
+    <choices>
+        <name>AddModifyProducts</name>
+        <choiceText>Modify Existing Quote</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>AddModifyProducts</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>newQuote</name>
+        <choiceText>Create new Quote</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>newQuote</stringValue>
+        </value>
+    </choices>
+    <decisions>
+        <description>This will check whether the installation type is updated or not by Agent, if updated then updates quote else no update on quote.</description>
+        <name>Check_if_Installation_Type_is_updated_or_not_0</name>
+        <label>Check if Installation Type is updated or not</label>
+        <locationX>446</locationX>
+        <locationY>758</locationY>
+        <defaultConnector>
+            <targetReference>Navigate_to_Edit_lines</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Installation type is not updated</defaultConnectorLabel>
+        <rules>
+            <name>Installation_type_is_updated_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Installation_Type_0</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>Get_Quote_Record.Installation_Type__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Selected_Installation_Type_to_Quote</targetReference>
+            </connector>
+            <label>Installation type is updated</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_whether_Agent_wants_to_modify_or_create_new_quote</name>
+        <label>Check whether Agent wants to modify or create new quote</label>
+        <locationX>1106</locationX>
+        <locationY>518</locationY>
+        <defaultConnector>
+            <targetReference>Assign_values_to_new_quote</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>New Quote</defaultConnectorLabel>
+        <rules>
+            <name>Wants_to_AddModify_Old_Quote</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>oldQuoteOrNewQuote</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>AddModifyProducts</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Navigate_to_Edit_lines</targetReference>
+            </connector>
+            <label>Wants to AddModify Old Quote</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>check_whether_the_Quote_has_Line_items_or_not</name>
+        <label>check whether the Quote has Line items or not</label>
+        <locationX>803</locationX>
+        <locationY>278</locationY>
+        <defaultConnector>
+            <targetReference>Question_For_new_Quote_or_Add_new_modify_products</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Quote has Line items</defaultConnectorLabel>
+        <rules>
+            <name>Quote_has_no_line_items</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Quote_Record.SBQQ__LineItemCount__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Preferred_Installation_Type_0</targetReference>
+            </connector>
+            <label>Quote has no line items</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This will validate if the installation type is selected is dealer and Opportunity is new installation type then throw error as Dealer is not for new installation type</description>
+        <name>Dealer_and_New_Installation_Type_will_not_go_together</name>
+        <label>Dealer and New Installation Type will not go together</label>
+        <locationX>248</locationX>
+        <locationY>638</locationY>
+        <defaultConnector>
+            <targetReference>Check_if_Installation_Type_is_updated_or_not_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Proceed to update Installation Type on Quote</defaultConnectorLabel>
+        <rules>
+            <name>Installation_Type_is_Dealer_and_New_Installation_Type</name>
+            <conditionLogic>1 AND (2 OR 3 OR 4)</conditionLogic>
+            <conditions>
+                <leftValueReference>Installation_Type_0</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Dealer Install</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Quote_Record.Sale_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>New Customer</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Quote_Record.Sale_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>New Owner</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Quote_Record.Sale_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Transfer</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Error_Message_0</targetReference>
+            </connector>
+            <label>Installation Type is Dealer and New Installation Type</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This will validate installation type based on the Available Installation Types on Zipcodes</description>
+        <name>Validate_Installation_Type</name>
+        <label>Validate Installation Type</label>
+        <locationX>501</locationX>
+        <locationY>518</locationY>
+        <defaultConnector>
+            <targetReference>Assign_Error_Message</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Invalid Installation Type</defaultConnectorLabel>
+        <rules>
+            <name>Valid_Installation_Type</name>
+            <conditionLogic>(1 AND 2) OR (3 AND 4) OR (5 AND 6)</conditionLogic>
+            <conditions>
+                <leftValueReference>Installation_Type_0</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Dealer Install</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Quote_Record.Is_Dealer_Install_Available__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Installation_Type_0</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Professional Install</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Quote_Record.Is_Professional_Install_Available__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Installation_Type_0</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Self Install</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Quote_Record.Is_Self_Install_Available__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Dealer_and_New_Installation_Type_will_not_go_together</targetReference>
+            </connector>
+            <label>Valid Installation Type</label>
+        </rules>
+    </decisions>
+    <description>This flow will open a screen to provide preferable Installation type based on Available Installation Types</description>
+    <dynamicChoiceSets>
+        <name>InstallationTypes</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>Installation_Type__c</picklistField>
+        <picklistObject>SBQQ__Quote__c</picklistObject>
+    </dynamicChoiceSets>
+    <interviewLabel>Quote_Screenflow for Preferred Installation Type {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Quote_Screenflow for Preferred Installation Type</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordCreates>
+        <description>This will create new quote based on old quote</description>
+        <name>Create_New_Quote</name>
+        <label>Create New Quote</label>
+        <locationX>1194</locationX>
+        <locationY>758</locationY>
+        <connector>
+            <targetReference>Update_recordId_variable_with_new_recordId</targetReference>
+        </connector>
+        <inputReference>newQuoteRec</inputReference>
+    </recordCreates>
+    <recordLookups>
+        <name>Get_Quote_Record</name>
+        <label>Get Quote Record</label>
+        <locationX>803</locationX>
+        <locationY>158</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>check_whether_the_Quote_has_Line_items_or_not</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>SBQQ__Quote__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Quote_Record_0</name>
+        <label>Update Quote Record</label>
+        <locationX>314</locationX>
+        <locationY>998</locationY>
+        <connector>
+            <targetReference>Navigate_to_Edit_lines</targetReference>
+        </connector>
+        <inputReference>Get_Quote_Record</inputReference>
+    </recordUpdates>
+    <screens>
+        <name>Preferred_Installation_Type_0</name>
+        <label>Preferred Installation Type</label>
+        <locationX>501</locationX>
+        <locationY>398</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Validate_Installation_Type</targetReference>
+        </connector>
+        <fields>
+            <name>Display_AvailableInstallTypes</name>
+            <fieldText>&lt;p&gt;Based on below Available Installation Types, choose preferred Installation Type for customer:&lt;/p&gt;&lt;p&gt;      Is Self Install Available: &lt;b&gt;{!Get_Quote_Record.Is_Self_Install_Available__c}&lt;/b&gt;&lt;/p&gt;&lt;p&gt;     Is Professional Install Available: &lt;b&gt;{!Get_Quote_Record.Is_Professional_Install_Available__c}&lt;/b&gt;&lt;/p&gt;&lt;p&gt;     Is Dealer Install Available: &lt;b&gt;{!Get_Quote_Record.Is_Dealer_Install_Available__c}&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>DisplayErrorMessage</name>
+            <fieldText>&lt;p&gt;&lt;b style=&quot;color: rgb(255, 10, 10);&quot;&gt;The selected Installation Type is not available for the Customer Zipcode, please select the installation type based on the above Available Zipcode.&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>IsInvalidInstallationType</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <booleanValue>true</booleanValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
+            <name>DealerInstallandNewCustomer</name>
+            <fieldText>&lt;p&gt;&lt;b style=&quot;color: rgb(253, 0, 0);&quot;&gt;Dealer Install Type is not available for New Customer/New&lt;span class=&quot;ql-cursor&quot;&gt;﻿&lt;/span&gt; Owner/Transfer.&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>isNewCustomerandDealerInstall</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <booleanValue>true</booleanValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
+            <name>Installation_Type_0</name>
+            <choiceReferences>InstallationTypes</choiceReferences>
+            <dataType>String</dataType>
+            <defaultValue>
+                <elementReference>Get_Quote_Record.Installation_Type__c</elementReference>
+            </defaultValue>
+            <fieldText>Installation Type</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <description>This screen will put question to the Agent whether they want to modify existing quote or new  quote</description>
+        <name>Question_For_new_Quote_or_Add_new_modify_products</name>
+        <label>Question For new Quote or Add new/modify products</label>
+        <locationX>1106</locationX>
+        <locationY>398</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Check_whether_Agent_wants_to_modify_or_create_new_quote</targetReference>
+        </connector>
+        <fields>
+            <name>oldQuoteOrNewQuote</name>
+            <choiceReferences>AddModifyProducts</choiceReferences>
+            <choiceReferences>newQuote</choiceReferences>
+            <dataType>String</dataType>
+            <defaultSelectedChoiceReference>AddModifyProducts</defaultSelectedChoiceReference>
+            <fieldType>RadioButtons</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>677</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Quote_Record</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>This field will decide whether the selected installation type is selected valid or invalid and displays error message based on it</description>
+        <name>IsInvalidInstallationType</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
+    <variables>
+        <description>This Boolean will let to know whether the Dealer is Installation Type and New Customer</description>
+        <name>isNewCustomerandDealerInstall</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
+    <variables>
+        <name>newQuoteRec</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>SBQQ__Quote__c</objectType>
+    </variables>
+    <variables>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

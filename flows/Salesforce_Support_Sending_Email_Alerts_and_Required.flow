@@ -1,0 +1,655 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Sending a mail to Member Portal Group</description>
+        <name>Sending_a_mail_to_Member_Portal_Group</name>
+        <label>Sending a mail to Member Portal Group</label>
+        <locationX>270</locationX>
+        <locationY>455</locationY>
+        <actionName>Salesforce_Support__c.Member_Portal_Issue_Assigned_To_You</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Assigning_Fiserv_Payment_Issues_to_supports</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Log_Exception_record</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>Sending an Alert to Fiserv Group</description>
+        <name>Sending_Alert_to_Fiserv_Group_0</name>
+        <label>Sending Alert to Fiserv Group</label>
+        <locationX>270</locationX>
+        <locationY>1055</locationY>
+        <actionName>Salesforce_Support__c.Fiserv_Payment_Issues_Assigned_To_You</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>SF_Support_Tickets_New</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Log_Exception_record_0</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>Sending an Email Alert for Member Portal / Billing and Payment Issue Request</description>
+        <name>Sending_an_Email_Alert_for_Member_Portal_Billing_and_Payment_Issue_Request</name>
+        <label>Sending an Email Alert for Member Portal / Billing and Payment Issue Request</label>
+        <locationX>270</locationX>
+        <locationY>2807</locationY>
+        <actionName>Salesforce_Support__c.Member_Portal_Request_Complete_Closed</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Checking_Requester_Exist_or_Not</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Log_Exception_record_0_0_0</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>Sending an Email Alert to Salesforce Support  When Status Is  Equals to Request Complete Closed</description>
+        <name>Sending_an_Email_Alert_to_Salesforce_Support</name>
+        <label>Sending an Email Alert to Salesforce Support</label>
+        <locationX>270</locationX>
+        <locationY>4007</locationY>
+        <actionName>Salesforce_Support__c.Salesforce_Support_Request_Complete_Closed</actionName>
+        <actionType>emailAlert</actionType>
+        <faultConnector>
+            <targetReference>Log_Exception_record_0_0_0_0_0</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>54.0</apiVersion>
+    <decisions>
+        <description>Assigning Fiserv Payment Issues to supports.
+Process Builder: Member Portal Issues Assigned To You</description>
+        <name>Assigning_Fiserv_Payment_Issues_to_supports</name>
+        <label>Assigning Fiserv Payment Issues to supports</label>
+        <locationX>534</locationX>
+        <locationY>935</locationY>
+        <defaultConnector>
+            <targetReference>SF_Support_Tickets_New</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No Issues</defaultConnectorLabel>
+        <rules>
+            <name>Fiserv_Payment_Issue_0_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordTypeId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0124v000001yTLaAAM</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Assigned_To__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Fivserv Group</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>isNew</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Sending_Alert_to_Fiserv_Group_0</targetReference>
+            </connector>
+            <label>Fiserv Payment Issue</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Assigning to Member Portal Issues supports.
+Process Builder: Member Portal Issues Assigned To You</description>
+        <name>Assigning_Member_Portal_Issues_to_supports</name>
+        <label>Assigning Member Portal Issues to supports</label>
+        <locationX>534</locationX>
+        <locationY>335</locationY>
+        <defaultConnector>
+            <targetReference>Assigning_Fiserv_Payment_Issues_to_supports</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Checking for Fiserv Payment Issue</defaultConnectorLabel>
+        <rules>
+            <name>Member_Portal_Issue</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>isNew</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordTypeId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0124v000001yTLaAAM</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Assigned_To__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Member Portal Group</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Sending_a_mail_to_Member_Portal_Group</targetReference>
+            </connector>
+            <label>Member Portal Issue</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking Condition for SSR Email Alert</description>
+        <name>Checking_Condition_for_SSR_Email_Alert</name>
+        <label>Checking Condition for SSR Email Alert</label>
+        <locationX>534</locationX>
+        <locationY>3887</locationY>
+        <defaultConnectorLabel>No Issue</defaultConnectorLabel>
+        <rules>
+            <name>SSR_Email_Alert1</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>4-Closed - Complete</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>isStatusChanged</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Sending_an_Email_Alert_to_Salesforce_Support</targetReference>
+            </connector>
+            <label>SSR Email Alert</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking two Conditions whether to Send an SSR Email Alert or not.</description>
+        <name>Checking_Condition_to_Send_an_SSR_Email_Alert</name>
+        <label>Checking Condition to Send an SSR Email Alert</label>
+        <locationX>534</locationX>
+        <locationY>2687</locationY>
+        <defaultConnector>
+            <targetReference>Checking_Requester_Exist_or_Not</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No Issue</defaultConnectorLabel>
+        <rules>
+            <name>SSR_Email_Alert</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Complete</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>isStatusChanged</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Sending_an_Email_Alert_for_Member_Portal_Billing_and_Payment_Issue_Request</targetReference>
+            </connector>
+            <label>SSR Email Alert</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking Member Portal Billing Payment Issue Complete
+ProcessBuilder: Member Portal Billing Payment Issue Complete</description>
+        <name>Checking_Member_Portal_Billing_Payment_Issue_Complete_0</name>
+        <label>Checking Member Portal Billing Payment Issue Complete</label>
+        <locationX>314</locationX>
+        <locationY>1991</locationY>
+        <defaultConnector>
+            <targetReference>Checking_Condition_to_Send_an_SSR_Email_Alert</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Check for SSR Email Alert Condition</defaultConnectorLabel>
+        <rules>
+            <name>SSR_Requester_Update_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordTypeId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>get_Member_Portal_RecordTypeId_From_Salesforce_Support_0.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Complete</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>update_the_SSR_Requester_Email_0_0</targetReference>
+            </connector>
+            <label>SSR Requester Update</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking RecordType Exist or not</description>
+        <name>Checking_RecordType_Exist_or_not</name>
+        <label>Checking RecordType Exist or not</label>
+        <locationX>534</locationX>
+        <locationY>1871</locationY>
+        <defaultConnector>
+            <targetReference>Checking_Condition_to_Send_an_SSR_Email_Alert</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>RecordType_Exists</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>get_Member_Portal_RecordTypeId_From_Salesforce_Support_0</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Checking_Member_Portal_Billing_Payment_Issue_Complete_0</targetReference>
+            </connector>
+            <label>RecordType Exists</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>SSR Requester Update
+ProcessBuilder:SSR Requester Email Update</description>
+        <name>Checking_Requester_Exist_or_Not</name>
+        <label>Checking Requester Exist or Not</label>
+        <locationX>534</locationX>
+        <locationY>3287</locationY>
+        <defaultConnector>
+            <targetReference>Checking_Condition_for_SSR_Email_Alert</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Check For Email Alert Condition</defaultConnectorLabel>
+        <rules>
+            <name>Exits</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Requester__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>isNew</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Updating_SSR_Requester_Email</targetReference>
+            </connector>
+            <label>Exists</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>SF Tasks &amp; Issues Tickets submitted
+Workflow:</description>
+        <name>SF_Support_Tickets_New</name>
+        <label>SF Support Tickets - New</label>
+        <locationX>534</locationX>
+        <locationY>1535</locationY>
+        <defaultConnector>
+            <targetReference>get_Member_Portal_RecordTypeId_From_Salesforce_Support_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Old</defaultConnectorLabel>
+        <rules>
+            <name>Checking_for_Sf_Support_Tickets_new_Or_Not</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>isNew</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordTypeId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0124v0000026rDHAAY</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>1-New</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>get_Member_Portal_RecordTypeId_From_Salesforce_Support_0</targetReference>
+            </connector>
+            <label>Checking for Sf Support Tickets new Or Not</label>
+        </rules>
+    </decisions>
+    <description>Salesforce Support: Sending Email Alerts and Required
+Story No: A3SHCRSF-198
+Process Builder:
+1. Member Portal Issues Assigned To You
+2.
+3. Member Portal Billing Payment Issue Complete</description>
+    <formulas>
+        <name>isNew</name>
+        <dataType>Boolean</dataType>
+        <expression>isNew()</expression>
+    </formulas>
+    <formulas>
+        <description>Checking whether the record is new or a particular field is changed.</description>
+        <name>isStatusChanged</name>
+        <dataType>Boolean</dataType>
+        <expression>isChanged({!$Record.Status__c})</expression>
+    </formulas>
+    <interviewLabel>Salesforce Support: {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Salesforce Support: Sending Email Alerts and Required</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_Exception_record</name>
+        <label>Log Exception record</label>
+        <locationX>534</locationX>
+        <locationY>575</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown while Sending a mail to Member Portal Group</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Salesforce Support: Sending Email Alerts and Required</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_Exception_record_0</name>
+        <label>Log Exception record</label>
+        <locationX>534</locationX>
+        <locationY>1175</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown while Sending Alert to Fiserv Group</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Salesforce Support: Sending Email Alerts and Required</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_Exception_record_0_0</name>
+        <label>Log Exception record</label>
+        <locationX>314</locationX>
+        <locationY>2231</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown whileupdate the SSR Requester Email</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Salesforce Support: Sending Email Alerts and Required</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_Exception_record_0_0_0</name>
+        <label>Log Exception record</label>
+        <locationX>534</locationX>
+        <locationY>2927</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown while Sending an Email Alert for Member Portal / Billing and Payment Issue Request</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Salesforce Support: Sending Email Alerts and Required</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_Exception_record_0_0_0_0</name>
+        <label>Log Exception record</label>
+        <locationX>534</locationX>
+        <locationY>3527</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown while Updating SSR Requester Email</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Salesforce Support: Sending Email Alerts and Required</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_Exception_record_0_0_0_0_0</name>
+        <label>Log Exception record</label>
+        <locationX>534</locationX>
+        <locationY>4127</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown while Sending an Email Alert to Salesforce Support</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Salesforce Support: Sending Email Alerts and Required</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <description>get Member Portal RecordTypeId From Salesforce Support</description>
+        <name>get_Member_Portal_RecordTypeId_From_Salesforce_Support_0</name>
+        <label>get Member Portal RecordTypeId From Salesforce Support</label>
+        <locationX>534</locationX>
+        <locationY>1751</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Checking_RecordType_Exist_or_not</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Member_Portal_Issue</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>SobjectType</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Salesforce_Support__c</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>RecordType</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>update the SSR Requester Email</description>
+        <name>update_the_SSR_Requester_Email_0_0</name>
+        <label>update the SSR Requester Email</label>
+        <locationX>50</locationX>
+        <locationY>2111</locationY>
+        <connector>
+            <targetReference>Checking_Condition_to_Send_an_SSR_Email_Alert</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Log_Exception_record_0_0</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>get_Member_Portal_RecordTypeId_From_Salesforce_Support_0.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SSR_Requester_Email__c</field>
+            <value>
+                <elementReference>$Record.Requester__r.Email</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Updating  SSR Requester Email</description>
+        <name>Updating_SSR_Requester_Email</name>
+        <label>Updating SSR Requester Email</label>
+        <locationX>270</locationX>
+        <locationY>3407</locationY>
+        <connector>
+            <targetReference>Checking_Condition_for_SSR_Email_Alert</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Log_Exception_record_0_0_0_0</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>SSR_Requester_Email__c</field>
+            <value>
+                <elementReference>$Record.Requester__r.Email</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>408</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Assigning_Member_Portal_Issues_to_supports</targetReference>
+        </connector>
+        <object>Salesforce_Support__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Draft</status>
+</Flow>

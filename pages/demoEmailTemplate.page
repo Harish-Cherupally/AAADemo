@@ -1,0 +1,25 @@
+<apex:page controller="ControllerFeedback" action="{!init}" >
+    <div style="display: flex; justify-content: center;">
+        <apex:form >
+            <div style="text-align:left;">
+                <c:AAAQuoteTemplateHeader quoteAccountName="{!quoteAccountName}" isA3="{!quoteA3Org}"/>
+                <br/><br/><br/>
+                <apex:pageMessages ></apex:pageMessages>
+                <apex:pageBlock rendered="{!IF((quotesstatus = 'Rejected' && isSubmitted == false), true, false)}">
+                    <apex:pageBlocksection columns="1">
+                        <div >
+                            <div>Reason For Reject</div>
+                            <apex:inputTextarea value="{!rejectionReason}" style="margin: 0px; width: 667px; height: 61px;"/>
+                        </div>
+                    </apex:pageBlocksection>
+                    <apex:commandButton action="{!submit}"  value="Submit"/>
+                    <br/>
+                    {!message}
+                </apex:pageBlock>
+                <div style="padding-bottom:10px;">
+                    <apex:image url="https://a3smarthome--crdev--c.documentforce.com/servlet/servlet.ImageServer?id=015030000005N8w&oid=00D030000008qkq"/>
+                </div>
+            </div>
+        </apex:form>
+    </div>
+</apex:page>

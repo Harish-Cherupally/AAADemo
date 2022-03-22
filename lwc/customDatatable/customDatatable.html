@@ -1,0 +1,72 @@
+<template>
+    <!-- lightning-datatable
+        key-field="Id"
+        data={pageData}
+        columns={columns}
+        hide-checkbox-column={hideCheckboxColumn}
+        onrowaction={openRecordDetail}
+        onclick={getSelectedName}>
+    </lightning-datatable -->
+
+    <table aria-multiselectable="true" class="slds-table slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols" role="grid" aria-label="Example advanced table of Opportunities in actionable mode">
+        <thead>
+            <tr class="slds-line-height_reset">
+                <template for:each={columns} for:item="column">
+                    <th aria-label={column.label} aria-sort="none" class="slds-is-resizable slds-is-sortable slds-cell_action-mode" scope="col" key={$index}>
+                        <a class="slds-th__action slds-text-link_reset" href="#" role="button" tabindex="0">
+                            <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                <span class="slds-truncate" title={column.label}>{column.label}</span>
+                            </div>
+                        </a>
+                        <div class="slds-resizable">
+                            <input type="range" aria-label="Name column width" class="slds-resizable__input slds-assistive-text" max="1000" min="20" tabindex="0" />
+                            <span class="slds-resizable__handle">
+                                <span class="slds-resizable__divider"></span>
+                            </span>
+                        </div>
+                    </th>
+                </template>
+                <th class="slds-cell_action-mode" scope="col" style="width:3.25rem">
+                    <div class="slds-truncate slds-assistive-text" title="Actions">Actions</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <template for:each={pageData} for:item="data">
+                <tr aria-selected="false" class="slds-hint-parent" onclick={rowClicked} key={data.Id} data-id={data.Id}>
+                    <template for:each={columns} for:item="column">
+                        <th class="slds-cell_action-mode" scope="row" key={$index1}>
+                            <c-cell-value column={column} table-row={data}></c-cell-value>
+                        </th>
+                    </template>
+                    <td class="slds-cell_action-mode" role="gridcell">
+                        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small" aria-haspopup="true" tabindex="0">
+                            <lightning-icon icon-name="utility:down" size="xx-small" alternative-text="Down!" title="Down" data-id={data.Id} onclick={toggleDropDown}></lightning-icon>
+                        </button>
+                        <div class="slds-dropdown slds-dropdown_right slds-dropdown_actions dropDownCss" data-dropdown={data.Id}>
+                            <ul class="slds-dropdown__list" role="menu">
+                                <template for:each={action.rowActions} for:item="rowAction">
+                                    <li class="slds-dropdown__item" role="presentation" key={$index1}>
+                                        <a href="#" role="menuitem" tabindex="0">
+                                            <span class="slds-truncate" onclick={executeRowAction} data-id={data.Id} data-action={rowAction.name} title={rowAction.label}>{rowAction.label}</span>
+                                        </a>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </template>
+        </tbody>
+    </table>
+
+    <div class="navigationCss">
+        <template if:true={showPrevious}>
+            <button class="slds-button" onclick={previous}>Previous</button>
+        </template>
+        &nbsp; Showing page {pageNumber} of {maxPageNumber} &nbsp; 
+        <template if:true={showNext}>
+            <button class="slds-button" onclick={next}>Next</button>
+        </template>
+    </div>
+</template>

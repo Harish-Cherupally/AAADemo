@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>53.0</apiVersion>
+    <assignments>
+        <description>This will update Sedona_Sales_Rep Field with opportunity Owner Name if it is Blank.</description>
+        <name>update_Sedona_Sales_Rep_Field_with_opportunity_Owner_Nam</name>
+        <label>update Sedona_Sales_Rep Field with opportunity Owner Nam</label>
+        <locationX>464</locationX>
+        <locationY>421</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Sedona_Sales_Rep__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_owner.Name</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <interviewLabel>Opportunity-Update Sedona Sales rep when it is null with Opp owner Name {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Opportunity-Update Sedona Sales rep when it is null with Opp owner Name</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Fetching the Record of the user(Owner of Opportunity Record) and storing Name of the Opp Owner so that we can update it in Sedona Sales rep. on Opportunity Records</description>
+        <name>Get_owner</name>
+        <label>Get owner Record with Name</label>
+        <locationX>271</locationX>
+        <locationY>375</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>update_Sedona_Sales_Rep_Field_with_opportunity_Owner_Nam</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.OwnerId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>User</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Name</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>268</locationX>
+        <locationY>32</locationY>
+        <connector>
+            <targetReference>Get_owner</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Sedona_Sales_Rep__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>Opportunity</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

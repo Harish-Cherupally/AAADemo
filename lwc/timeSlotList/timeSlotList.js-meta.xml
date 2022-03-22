@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+	<apiVersion>51.0</apiVersion>
+	<isExposed>true</isExposed>
+	<targets>
+		<target>lightning__FlowScreen</target>
+	</targets>
+	<targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="slotJSON2" label="json" type="apex://ESWFieldServiceSchedWrapper[]" role="inputOnly"/>
+			<property name="slotJSON1" label="json" type="String" role="inputOnly"/>
+			<property name="startTime" label="Start Time" type="DateTime"  role="outputOnly"/>
+            <property name="endTime" label="End Time" type="DateTime" role="outputOnly"/>
+			<property name="timeZone" label="Time Zone" type="String" role="inputOnly"/>
+			<!--property name="TimeZone" label="End Time" type="String" role="inputOnly"-->
+        </targetConfig>
+    </targetConfigs>    
+</LightningComponentBundle>

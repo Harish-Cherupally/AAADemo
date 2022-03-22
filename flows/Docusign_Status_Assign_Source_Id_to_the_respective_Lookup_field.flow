@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>53.0</apiVersion>
+    <assignments>
+        <description>This will assign source Id to the quote field on Docusign status</description>
+        <name>Assign_Source_Id_to_the_Quote_0</name>
+        <label>Assign Source Id to the Quote</label>
+        <locationX>314</locationX>
+        <locationY>791</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Quote__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.dfsle__SourceId__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Opportunity__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Quote_Record.Opportunity_ID__c</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>This will link Source Id to the Work Order Lookup field</description>
+        <name>Assign_Source_Id_to_the_WorkOrder_Field</name>
+        <label>Assign Source Id to the WorkOrder Field</label>
+        <locationX>50</locationX>
+        <locationY>551</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Work_Order__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.dfsle__SourceId__c</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <description>This will check quote exists or not.</description>
+        <name>Check_if_Quote_exists</name>
+        <label>Check if Quote exists</label>
+        <locationX>446</locationX>
+        <locationY>671</locationY>
+        <defaultConnectorLabel>Quote doesn&apos;t exists</defaultConnectorLabel>
+        <rules>
+            <name>Quote_Exists</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Quote_Record</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Source_Id_to_the_Quote_0</targetReference>
+            </connector>
+            <label>Quote Exists</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This will check whether source id exists or not</description>
+        <name>Check_if_source_id_exists</name>
+        <label>Check if source id exists</label>
+        <locationX>545</locationX>
+        <locationY>311</locationY>
+        <defaultConnectorLabel>Source Id doesn&apos;t Exist</defaultConnectorLabel>
+        <rules>
+            <name>Source_Id_Exists</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.dfsle__SourceId__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Check_If_Source_Id_is_related_to_Work_Order</targetReference>
+            </connector>
+            <label>Source Id Exists</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This will validate if Source Id is related to Work Order or not</description>
+        <name>Check_If_Source_Id_is_related_to_Work_Order</name>
+        <label>Check If Source Id is related to Work Order</label>
+        <locationX>248</locationX>
+        <locationY>431</locationY>
+        <defaultConnector>
+            <targetReference>Get_Quote_Record</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Work OrderId</defaultConnectorLabel>
+        <rules>
+            <name>Its_Work_Order_Id</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.dfsle__SourceId__c</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>0WO</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Source_Id_to_the_WorkOrder_Field</targetReference>
+            </connector>
+            <label>Its Work Order Id</label>
+        </rules>
+    </decisions>
+    <description>This flow will link the Source Id to the respective Lookup field
+--&gt; If source id is related to Quote then its related to Quote and Opportunity
+--&gt; If source id is related to work order then its related to Work Order Look up field</description>
+    <interviewLabel>Docusign Status: Assign Source Id to the respective Lookup field {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Docusign Status: Assign Source Id to the respective Lookup field</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Fetching the Quote record</description>
+        <name>Get_Quote_Record</name>
+        <label>Get Quote Record</label>
+        <locationX>446</locationX>
+        <locationY>551</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_if_Quote_exists</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.dfsle__SourceId__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>SBQQ__Quote__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Opportunity_ID__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>419</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Check_if_source_id_exists</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>dfsle__DocuSignId__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>dfsle__EnvelopeStatus__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

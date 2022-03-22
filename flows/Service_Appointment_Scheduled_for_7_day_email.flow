@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>This will send email if Service Appointment schedulestarttime date and today&apos;s date difference is greater than 7 as part of Workflow -&quot; Send 7 Day Appointment Reminder Email&quot;</description>
+        <name>AAA_7_Day_Appointment_Reminder_Email</name>
+        <label>AAA 7 Day Appointment Reminder Email</label>
+        <locationX>50</locationX>
+        <locationY>768</locationY>
+        <actionName>ServiceAppointment.AAA_7_Day_Appointment_Reminder_Email</actionName>
+        <actionType>emailAlert</actionType>
+        <faultConnector>
+            <targetReference>Log_exception_record_0</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>54.0</apiVersion>
+    <decisions>
+        <description>Checking CRM Superhero ID Exist or Not</description>
+        <name>Checking_CRM_Superhero_ID_Exists_or_Not</name>
+        <label>Checking CRM Superhero ID Exists or Not</label>
+        <locationX>446</locationX>
+        <locationY>528</locationY>
+        <defaultConnectorLabel>User nor exist</defaultConnectorLabel>
+        <rules>
+            <name>user_is_exist_or_not</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Getting_User_Id_of_CRM_Superhero</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Task</targetReference>
+            </connector>
+            <label>user is exist or not</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Send_7_Day_Appointment_Reminder_Email</name>
+        <label>Send 7 Day Appointment Reminder Email</label>
+        <locationX>776</locationX>
+        <locationY>288</locationY>
+        <defaultConnectorLabel>Email not send</defaultConnectorLabel>
+        <rules>
+            <name>Status_is_scheduled_and_subject_is_New_Installation</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>ScheduleStartdate7</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Getting_User_Id_of_CRM_Superhero</targetReference>
+            </connector>
+            <label>Status is scheduled and subject is New Installation</label>
+        </rules>
+    </decisions>
+    <description>This flow will contain all Email Alerts and respective actions which moved from Workflow/PB as part of A3SHCRSF3-198
+1. Workflow: Send 7 Day Appointment Reminder Email</description>
+    <formulas>
+        <name>ScheduleStartdate7</name>
+        <dataType>Boolean</dataType>
+        <expression>DATEVALUE({!$Record.SchedStartTime}) - TODAY() &gt;= 7</expression>
+    </formulas>
+    <interviewLabel>Service Appointment: Scheduled for 7 day email {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Service Appointment: Scheduled for 7 day email</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Create_Task</name>
+        <label>Create Task</label>
+        <locationX>50</locationX>
+        <locationY>648</locationY>
+        <connector>
+            <targetReference>AAA_7_Day_Appointment_Reminder_Email</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Log_exception_record</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Getting_User_Id_of_CRM_Superhero.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>Normal</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>Sent AAA 2 Day Appointment Reminder Email</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_exception_record</name>
+        <label>Log exception record</label>
+        <locationX>578</locationX>
+        <locationY>768</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown while Sending AAA 7 Day Appointment Reminder Email</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Service Appointment: Email Alerts and Respective Actions</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_exception_record_0</name>
+        <label>Log exception record</label>
+        <locationX>314</locationX>
+        <locationY>888</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown while Sending AAA 7 Day Appointment Reminder Email</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Service Appointment: Email Alerts and Respective Actions</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <name>Getting_User_Id_of_CRM_Superhero</name>
+        <label>Getting User Id of CRM Superhero</label>
+        <locationX>446</locationX>
+        <locationY>408</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Checking_CRM_Superhero_ID_Exists_or_Not</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Username</field>
+            <operator>StartsWith</operator>
+            <value>
+                <stringValue>crmsuperhero@aaa.com</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>User</object>
+        <queriedFields>Id</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>155</locationX>
+        <locationY>0</locationY>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Status</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Scheduled</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Subject</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>New Installation</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>In_Scheduler__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>ServiceAppointment</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <scheduledPaths>
+            <name>Send_7_Day_Appointment_Reminder_Email_new</name>
+            <connector>
+                <targetReference>Send_7_Day_Appointment_Reminder_Email</targetReference>
+            </connector>
+            <label>Send 7 Day Appointment Reminder Email new</label>
+            <offsetNumber>7</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
+            <recordField>SchedStartTime</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Draft</status>
+</Flow>

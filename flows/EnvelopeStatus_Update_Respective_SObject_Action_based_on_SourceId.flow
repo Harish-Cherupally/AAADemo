@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>This will do Apex action to retrieve Sobject name from ids</description>
+        <name>Get_SObject_Name</name>
+        <label>Get SObject  Name</label>
+        <locationX>930</locationX>
+        <locationY>455</locationY>
+        <actionName>AutoSendDocuSignEnvelope</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Check_SObject_Name</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>sObjectIds</name>
+            <value>
+                <elementReference>$Record.dfsle__SourceId__c</elementReference>
+            </value>
+        </inputParameters>
+        <outputParameters>
+            <assignToReference>SObjectName</assignToReference>
+            <name>output</name>
+        </outputParameters>
+    </actionCalls>
+    <apiVersion>53.0</apiVersion>
+    <decisions>
+        <description>This field will check if there is any Case assigned to WO</description>
+        <name>Check_if_Case_is_Assigned_to_WO_or_not</name>
+        <label>Check if Case is Assigned to WO or not</label>
+        <locationX>974</locationX>
+        <locationY>1055</locationY>
+        <defaultConnector>
+            <targetReference>Check_Whether_Service_Type_on_WO_is_Service_Appointment_or_not</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No Case Assigned</defaultConnectorLabel>
+        <rules>
+            <name>Case_is_Assigned</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Latest_WO_Data.CaseId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Latest_Service_Appointment_Data.Service_Type__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Service Appointment</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Case_Status_to_Completed</targetReference>
+            </connector>
+            <label>Case is Assigned</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This will check the object name and do the respective action</description>
+        <name>Check_SObject_Name</name>
+        <label>Check SObject Name</label>
+        <locationX>930</locationX>
+        <locationY>575</locationY>
+        <defaultConnectorLabel>Invalid SObject Id</defaultConnectorLabel>
+        <rules>
+            <name>Its_Quote_Id</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>SObjectName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>SBQQ__Quote__c</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Quote_Status_Ordered</targetReference>
+            </connector>
+            <label>Its Quote Id</label>
+        </rules>
+        <rules>
+            <name>Is_Work_Order_Id</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>SObjectName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>WorkOrder</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Work_Order_Status_to_Completed</targetReference>
+            </connector>
+            <label>Is Work Order Id</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This will validate whether the Service Type on WO is Service Appointment or not</description>
+        <name>Check_Whether_Service_Type_on_WO_is_Service_Appointment_or_not</name>
+        <label>Check Whether Service Type on WO is Service Appointment or not</label>
+        <locationX>974</locationX>
+        <locationY>1715</locationY>
+        <defaultConnector>
+            <targetReference>Update_Opportunity_with_Work_Order_Status_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not &quot;Service Appointment&quot; Service Type</defaultConnectorLabel>
+        <rules>
+            <name>Service_Type_is_Service_Appointment</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Latest_WO_Data.Service_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Service Appointment</stringValue>
+                </rightValue>
+            </conditions>
+            <label>Service Type is Service Appointment</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This will validate source Id</description>
+        <name>Validating_SourceID</name>
+        <label>Validating SourceID</label>
+        <locationX>1502</locationX>
+        <locationY>335</locationY>
+        <defaultConnectorLabel>SourceID not Found</defaultConnectorLabel>
+        <rules>
+            <name>SourceID_Found</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.dfsle__SourceId__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_SObject_Name</targetReference>
+            </connector>
+            <label>SourceID Found</label>
+        </rules>
+    </decisions>
+    <description>This will update the respective object actions once Docusign status is completed.
+--&gt; If its Quote, then its Status will be updated to Approved and Ordered checkbox checked
+--&gt; If its WorkOrder, then its Status to be Completed
+A3SHCRSF3-196: Excluded case update when SA service type =&apos;Service Appointment&apos;</description>
+    <interviewLabel>EnvelopeStatus: Update Respective SObject Action based on SourceId {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>EnvelopeStatus: Update Respective SObject Action based on SourceId</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <description>This will create Case Comments for the related Case</description>
+        <name>Create_Case_Comments</name>
+        <label>Create Case Comments</label>
+        <locationX>578</locationX>
+        <locationY>1295</locationY>
+        <connector>
+            <targetReference>Check_Whether_Service_Type_on_WO_is_Service_Appointment_or_not</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Log_Exception_record_0_0_0</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>CommentBody</field>
+            <value>
+                <elementReference>Get_Latest_Service_Appointment_Data.ServiceNote</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>IsPublished</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ParentId</field>
+            <value>
+                <elementReference>Get_Latest_WO_Data.CaseId</elementReference>
+            </value>
+        </inputAssignments>
+        <object>CaseComment</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_Exception_record</name>
+        <label>Log Exception record</label>
+        <locationX>314</locationX>
+        <locationY>815</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown when Quote got updated</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>EnvelopeStatus: Update Respective SObject Action based on SourceId</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_Exception_record_0</name>
+        <label>Log Exception record</label>
+        <locationX>1546</locationX>
+        <locationY>815</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown when Work Order status is updated to Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>EnvelopeStatus: Update Respective SObject Action based on SourceId</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_Exception_record_0_0</name>
+        <label>Log Exception record</label>
+        <locationX>1106</locationX>
+        <locationY>1295</locationY>
+        <connector>
+            <targetReference>Check_Whether_Service_Type_on_WO_is_Service_Appointment_or_not</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown when Case Status is updating to Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>EnvelopeStatus: Update Respective SObject Action based on SourceId</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_Exception_record_0_0_0</name>
+        <label>Log Exception record</label>
+        <locationX>842</locationX>
+        <locationY>1415</locationY>
+        <connector>
+            <targetReference>Check_Whether_Service_Type_on_WO_is_Service_Appointment_or_not</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown when Case Comments are getting Created</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>EnvelopeStatus: Update Respective SObject Action based on SourceId</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <description>This will retrieve the Latest Service Appointment with Completed Status</description>
+        <name>Get_Latest_Service_Appointment_Data</name>
+        <label>Get Latest Service Appointment Data</label>
+        <locationX>974</locationX>
+        <locationY>935</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_if_Case_is_Assigned_to_WO_or_not</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ParentRecordId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Latest_WO_Data.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>ServiceAppointment</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>ServiceNote</queriedFields>
+        <queriedFields>Service_Type__c</queriedFields>
+        <sortField>LastModifiedDate</sortField>
+        <sortOrder>Desc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>This will retrieve the Latest Work Order Data</description>
+        <name>Get_Latest_WO_Data</name>
+        <label>Get Latest WO Data</label>
+        <locationX>974</locationX>
+        <locationY>815</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Latest_Service_Appointment_Data</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.dfsle__SourceId__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>WorkOrder</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Status</queriedFields>
+        <queriedFields>CaseId</queriedFields>
+        <queriedFields>Service_Type__c</queriedFields>
+        <queriedFields>Opportunity__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>This will update Case Status to Completed as part of A3SHCRSF3-10</description>
+        <name>Update_Case_Status_to_Completed</name>
+        <label>Update Case Status to Completed</label>
+        <locationX>578</locationX>
+        <locationY>1175</locationY>
+        <connector>
+            <targetReference>Create_Case_Comments</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Log_Exception_record_0_0</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Latest_WO_Data.CaseId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>This will update Opportunity with WO status and Installation Date</description>
+        <name>Update_Opportunity_with_Work_Order_Status_0</name>
+        <label>Update Opportunity with Work Order Status</label>
+        <locationX>1106</locationX>
+        <locationY>1835</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Latest_WO_Data.Opportunity__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Date_Installation_Completed__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Date_Work_Order_Status_Updated__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Work_Order_Status__c</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Updating status to approved and checking the ordered checkbox.</description>
+        <name>Update_Quote_Status_Ordered</name>
+        <label>Update Quote Status &amp; Ordered</label>
+        <locationX>50</locationX>
+        <locationY>695</locationY>
+        <faultConnector>
+            <targetReference>Log_Exception_record</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.dfsle__SourceId__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>SBQQ__Ordered__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>SBQQ__Status__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Approved</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>SBQQ__Primary__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>SBQQ__Ordered__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SBQQ__StartDate__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SBQQ__Status__c</field>
+            <value>
+                <stringValue>Approved</stringValue>
+            </value>
+        </inputAssignments>
+        <object>SBQQ__Quote__c</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>This will update Work Order Status to completed upon on Docusign Status is completed</description>
+        <name>Update_Work_Order_Status_to_Completed</name>
+        <label>Update Work Order Status to Completed</label>
+        <locationX>974</locationX>
+        <locationY>695</locationY>
+        <connector>
+            <targetReference>Get_Latest_WO_Data</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Log_Exception_record_0</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.dfsle__SourceId__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <object>WorkOrder</object>
+    </recordUpdates>
+    <start>
+        <locationX>1376</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Validating_SourceID</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>dfsle__Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </filters>
+        <object>dfsle__EnvelopeStatus__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>This will store SObject Name retrieved from Apex action</description>
+        <name>SObjectName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

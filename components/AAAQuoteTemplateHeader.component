@@ -1,0 +1,35 @@
+<apex:component access="global">
+    
+    <apex:attribute name="quoteAccountName" type="String" description="account name"/>
+    <apex:attribute name="isA3" type="Boolean" default="false" description="Checking Account is A3"/>
+
+    <!-- <apex:slds /> -->
+
+    <div style="text-align:left;">
+        <!-- <apex:image url="https://a3smarthome--partialsb--c.documentforce.com/servlet/servlet.ImageServer?id=0157X0000008fgO&oid=00D7X0000004bgu"/>-->
+        <div style="padding-bottom:10px;">
+            <apex:image url="https://a3smarthome--crdev--c.documentforce.com/servlet/servlet.ImageServer?id=015030000005N8w&oid=00D030000008qkq"/>
+        </div>
+        
+    </div>
+    <div style="display: flex;">
+        <div>
+        
+            <apex:image url="a3smarthome--crdev--c.documentforce.com/servlet/servlet.ImageServer?id=015030000005N8m&oid=00D030000008qkq"
+                        style="align:center"
+                        rendered="{!isA3}"/>
+
+            <apex:image url="https://a3smarthome--crdev--c.documentforce.com/servlet/servlet.ImageServer?id=015030000005N8r&oid=00D030000008qkq" 
+                        style="align:center"
+                        rendered="{!!isA3}"/>
+        </div>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td style="text-align: center;font-size: large;">
+                    <span>{!quoteAccountName}</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+ 
+</apex:component>

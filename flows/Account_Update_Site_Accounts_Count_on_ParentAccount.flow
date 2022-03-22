@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+    <assignments>
+        <description>This will add the Current Parent AccountId to the List</description>
+        <name>Add_Current_Parent_AccountId_to_the_List</name>
+        <label>Add Current Parent AccountId to the List</label>
+        <locationX>314</locationX>
+        <locationY>1031</locationY>
+        <assignmentItems>
+            <assignToReference>parentAccountIds</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>$Record.ParentId</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_SiteAccount_RecordType_Info</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>This will add ParentAccount Instance to the List</description>
+        <name>Add_ParentAccount_Instance_to_the_List</name>
+        <label>Add ParentAccount Instance to the List</label>
+        <locationX>336</locationX>
+        <locationY>1943</locationY>
+        <assignmentItems>
+            <assignToReference>parentAccountInstances</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>TempAccount</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Iterate_over_ParentAccountIds</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>This will add the ParentAccountId to the List</description>
+        <name>Add_ParentAccountId_to_the_List</name>
+        <label>Add ParentAccountId to the List</label>
+        <locationX>50</locationX>
+        <locationY>575</locationY>
+        <assignmentItems>
+            <assignToReference>newParentAccountId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ParentId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>parentAccountIds</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>$Record.ParentId</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_SiteAccount_RecordType_Info</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>This will add the Previous Parent AccountId to the List</description>
+        <name>Add_Previous_Parent_AccountId_to_the_List</name>
+        <label>Add Previous Parent AccountId to the List</label>
+        <locationX>314</locationX>
+        <locationY>695</locationY>
+        <assignmentItems>
+            <assignToReference>parentAccountIds</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>$Record__Prior.ParentId</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Check_If_Current_Parent_AccountId_is_null_or_not</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>This will assign Site Account count to Parent Account Instance</description>
+        <name>Assign_SiteAccount_Count_to_Parent_Account</name>
+        <label>Assign SiteAccount Count to Parent Account</label>
+        <locationX>336</locationX>
+        <locationY>1823</locationY>
+        <assignmentItems>
+            <assignToReference>TempAccount.Id</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Iterate_over_ParentAccountIds</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TempAccount.No_Of_Site_Accounts__c</assignToReference>
+            <operator>AssignCount</operator>
+            <value>
+                <elementReference>Get_Parent_Account_Related_Site_Accounts</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Add_ParentAccount_Instance_to_the_List</targetReference>
+        </connector>
+    </assignments>
+    <collectionProcessors>
+        <description>This will get related Site Accounts for the Parent AccountId</description>
+        <name>Get_Parent_Account_Related_Site_Accounts</name>
+        <elementSubtype>FilterCollectionProcessor</elementSubtype>
+        <label>Get Parent Account Related Site Accounts</label>
+        <locationX>336</locationX>
+        <locationY>1703</locationY>
+        <assignNextValueToReference>currentItem_Get_Parent_Account_Related_Site_Accounts</assignNextValueToReference>
+        <collectionProcessorType>FilterCollectionProcessor</collectionProcessorType>
+        <collectionReference>Get_All_Site_Accounts_Based_on_ParentAccountIds</collectionReference>
+        <conditionLogic>and</conditionLogic>
+        <conditions>
+            <leftValueReference>currentItem_Get_Parent_Account_Related_Site_Accounts.ParentId</leftValueReference>
+            <operator>EqualTo</operator>
+            <rightValue>
+                <elementReference>Iterate_over_ParentAccountIds</elementReference>
+            </rightValue>
+        </conditions>
+        <connector>
+            <targetReference>Assign_SiteAccount_Count_to_Parent_Account</targetReference>
+        </connector>
+    </collectionProcessors>
+    <decisions>
+        <description>This will check if the Current Parent AccountId is null or not</description>
+        <name>Check_If_Current_Parent_AccountId_is_null_or_not</name>
+        <label>Check If Current Parent AccountId is null or not</label>
+        <locationX>446</locationX>
+        <locationY>911</locationY>
+        <defaultConnector>
+            <targetReference>Get_SiteAccount_RecordType_Info</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Current ParentAccountId Doesn&apos;t Exist</defaultConnectorLabel>
+        <rules>
+            <name>Current_ParentAccountId_Exist</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.ParentId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Add_Current_Parent_AccountId_to_the_List</targetReference>
+            </connector>
+            <label>Current ParentAccountId Exist</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This will check if the previous Parent AccountId is null or not</description>
+        <name>Check_If_previous_Parent_AccountId_is_null_or_not</name>
+        <label>Check If previous Parent AccountId is null or not</label>
+        <locationX>446</locationX>
+        <locationY>575</locationY>
+        <defaultConnector>
+            <targetReference>Check_If_Current_Parent_AccountId_is_null_or_not</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Previous ParentAccountId Doesn&apos;t Exist</defaultConnectorLabel>
+        <rules>
+            <name>Previous_ParentAccountId_Exist</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record__Prior.ParentId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Add_Previous_Parent_AccountId_to_the_List</targetReference>
+            </connector>
+            <label>Previous ParentAccountId Exist</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This will check if Account is created or Updated</description>
+        <name>Is_Account_Created_or_Updated</name>
+        <label>Is Account Created or Updated</label>
+        <locationX>248</locationX>
+        <locationY>455</locationY>
+        <defaultConnector>
+            <targetReference>Check_If_previous_Parent_AccountId_is_null_or_not</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Account Updated</defaultConnectorLabel>
+        <rules>
+            <name>Account_Created</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record__Prior</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Add_ParentAccountId_to_the_List</targetReference>
+            </connector>
+            <label>Account Created</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This will check if the Site Account is new or its related ParentAccount Changed</description>
+        <name>Is_Site_Account_New_or_its_related_ParentAccount_Changed</name>
+        <label>Is Site Account New or its related ParentAccount Changed</label>
+        <locationX>633</locationX>
+        <locationY>335</locationY>
+        <defaultConnectorLabel>NoUpdate Required</defaultConnectorLabel>
+        <rules>
+            <name>NewOrUpdatedSiteAccount</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>IsSiteAccCreatedOrItsParentAccUpdated</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Is_Account_Created_or_Updated</targetReference>
+            </connector>
+            <label>NewOrUpdatedSiteAccount</label>
+        </rules>
+    </decisions>
+    <description>This flow will update Parent Account with its related Site Accounts Count based on A3SHCRSF3-34</description>
+    <formulas>
+        <description>This will check if the Account is Site record type and whether its created or its related ParentAccount changed or not</description>
+        <name>IsSiteAccCreatedOrItsParentAccUpdated</name>
+        <dataType>Boolean</dataType>
+        <expression>AND({!$Record.RecordType.Name} == &apos;SiteAccount&apos; , OR(AND(ISNEW(),{!$Record.ParentId} != null),ISCHANGED({!$Record.ParentId})))</expression>
+    </formulas>
+    <interviewLabel>Account: Update Site Accounts Count on ParentAccount {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Account: Update Site Accounts Count on ParentAccount</label>
+    <loops>
+        <description>This loop will iterate over ParentAccountIds</description>
+        <name>Iterate_over_ParentAccountIds</name>
+        <label>Iterate over ParentAccountIds</label>
+        <locationX>248</locationX>
+        <locationY>1583</locationY>
+        <collectionReference>parentAccountIds</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Get_Parent_Account_Related_Site_Accounts</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Update_Parent_Accounts_with_SiteAccount_Count</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_Exception_Record</name>
+        <label>Log Exception Record</label>
+        <locationX>754</locationX>
+        <locationY>2279</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown while updating Parent Account with Site Account Count</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Account: Update Site Accounts Count on ParentAccount</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <description>This will retrieve all Site Accounts based on Parent Account Id</description>
+        <name>Get_All_Site_Accounts_Based_on_ParentAccountIds</name>
+        <label>Get All Site Accounts Based on ParentAccountIds</label>
+        <locationX>248</locationX>
+        <locationY>1463</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Iterate_over_ParentAccountIds</targetReference>
+        </connector>
+        <filterLogic>(1 OR 2) AND 3 AND 4</filterLogic>
+        <filters>
+            <field>ParentId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.ParentId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>ParentId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record__Prior.ParentId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>ParentId</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>RecordTypeId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_SiteAccount_RecordType_Info.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Account</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>ParentId</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>This will retrieve SiteAccount RecordType info</description>
+        <name>Get_SiteAccount_RecordType_Info</name>
+        <label>Get SiteAccount RecordType Info</label>
+        <locationX>248</locationX>
+        <locationY>1343</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_All_Site_Accounts_Based_on_ParentAccountIds</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>SiteAccount</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>SobjectType</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Account</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>RecordType</object>
+        <queriedFields>Id</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>This will update Parent Account with Site Accounts Count</description>
+        <name>Update_Parent_Accounts_with_SiteAccount_Count</name>
+        <label>Update Parent Accounts with SiteAccount Count</label>
+        <locationX>248</locationX>
+        <locationY>2159</locationY>
+        <faultConnector>
+            <targetReference>Log_Exception_Record</targetReference>
+        </faultConnector>
+        <inputReference>parentAccountInstances</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>507</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Is_Site_Account_New_or_its_related_ParentAccount_Changed</targetReference>
+        </connector>
+        <object>Account</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>currentItem_Get_Parent_Account_Related_Site_Accounts</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Account</objectType>
+    </variables>
+    <variables>
+        <description>This will store the new Parent AccountId</description>
+        <name>newParentAccountId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>This will store all ParentAccountIds</description>
+        <name>parentAccountIds</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>This will store the Instance of Parent Accounts</description>
+        <name>parentAccountInstances</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Account</objectType>
+    </variables>
+    <variables>
+        <description>This will store previous ParentAccountId</description>
+        <name>previousParentAccountId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>This will be temporary Account Instance</description>
+        <name>TempAccount</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Account</objectType>
+    </variables>
+</Flow>

@@ -1,0 +1,33 @@
+<aura:component>
+    <aura:attribute name="tableData" type="List" />
+    <aura:attribute name="columns" type="List" />
+    <aura:attribute name="recordsPerPage" type="Integer" default="10" />
+    <aura:attribute name="hideCheckboxColumn" type="Boolean" default="{!false}" />
+    <aura:attribute name="pageData" type="List" default="[]" />
+    <aura:attribute name="pageNumber" type="Integer" default="1" />
+    <aura:attribute name="maxPageNumber" type="Integer" default="0" />
+    <aura:attribute name="showPrevious" type="Boolean" default="{!false}" />
+    <aura:attribute name="showNext" type="Boolean" default="{!false}" />
+    <aura:attribute name="showPagination" type="Boolean" default="{!false}" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <lightning:datatable
+        keyField="Id"
+        data="{!v.pageData}"
+        columns="{!v.columns}"
+        hideCheckboxColumn="{!v.hideCheckboxColumn}"
+        onrowaction="{!c.openRecordDetail}"
+        onclick="{!c.getTableClick}">
+    </lightning:datatable>
+
+    <div class="navigationCss">
+        <aura:if isTrue="{!v.showPrevious}">
+            <button class="slds-button" onclick="{!c.previous}">Previous</button>
+        </aura:if>
+        &nbsp; Showing page {!v.pageNumber} of {!v.maxPageNumber} &nbsp; 
+        <aura:if isTrue="{!not(v.showPrevious)}">
+            <button class="slds-button" onclick="{!c.next}">Next</button>
+        </aura:if>
+    </div>
+</aura:component>

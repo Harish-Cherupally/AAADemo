@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+    <decisions>
+        <name>Is_Assigned_Resource_Null</name>
+        <label>Is Assigned Resource Null</label>
+        <locationX>182</locationX>
+        <locationY>431</locationY>
+        <defaultConnector>
+            <targetReference>Is_SA_last_modified_by_a_dispatcher_and_Status_Scheduled</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>is_assigned_resource_null2</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>assigned_resources.ServiceResourceId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_SA_Pro</targetReference>
+            </connector>
+            <label>is assigned resource null</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_SA_last_modified_by_a_dispatcher_and_Status_Scheduled</name>
+        <label>Is SA last modified by a dispatcher and Status Scheduled</label>
+        <locationX>182</locationX>
+        <locationY>767</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Status_None</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>None</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Dispatcher_null</targetReference>
+            </connector>
+            <label>Status = None</label>
+        </rules>
+    </decisions>
+    <description>Update the Assigned PRO, the Dispatcher field, and the Date_Appointment_Scheduled__c.</description>
+    <interviewLabel>Service Appointment - Assigned PRO and Dispatcher Update {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Service Appointment - Assigned PRO and Dispatcher Update</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>assigned_resources</name>
+        <label>assigned resources</label>
+        <locationX>182</locationX>
+        <locationY>311</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Is_Assigned_Resource_Null</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ServiceAppointmentId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>AssignedResource</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Dispatcher_null</name>
+        <label>Dispatcher null</label>
+        <locationX>50</locationX>
+        <locationY>887</locationY>
+        <inputAssignments>
+            <field>Assigned_Pro__c</field>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Date_Appointment_Scheduled__c</field>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Dispatcher__c</field>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_SA_Pro</name>
+        <label>Update SA Pro</label>
+        <locationX>50</locationX>
+        <locationY>551</locationY>
+        <connector>
+            <targetReference>Is_SA_last_modified_by_a_dispatcher_and_Status_Scheduled</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Assigned_Pro__c</field>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>assigned_resources</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Status</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>ServiceAppointment</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

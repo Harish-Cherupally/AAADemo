@@ -1,0 +1,1263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>This will send email if Service Appointment schedulestarttime date and today&apos;s date difference is greater than 1 as part of Workflow -&quot;Send 24 Hour Appointment Reminder Email &quot;</description>
+        <name>AAA_24_Hour_Appointment_Reminder_Email</name>
+        <label>AAA 24 Hour Appointment Reminder Email</label>
+        <locationX>5066</locationX>
+        <locationY>768</locationY>
+        <actionName>ServiceAppointment.AAA_24_Hour_Appointment_Reminder_Email</actionName>
+        <actionType>emailAlert</actionType>
+        <faultConnector>
+            <targetReference>Log_exception_record_0_0_0_0</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>This will send email if Service Appointment schedulestarttime date and today&apos;s date difference is greater than 1 as part of Workflow -&quot;Send 24 Hour Appointment Reminder Email_Service Ticket &quot;</description>
+        <name>AAA_24_Hour_Appointment_Reminder_Email_Service</name>
+        <label>AAA 24 Hour Appointment Reminder Email Service</label>
+        <locationX>6122</locationX>
+        <locationY>408</locationY>
+        <actionName>ServiceAppointment.AAA_24_Hour_Appointment_Reminder_Email_Service</actionName>
+        <actionType>emailAlert</actionType>
+        <faultConnector>
+            <targetReference>Log_exception_record_0_0_0_0_0</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>This will send email when status is scheduled and subject New Installation based on workflow &quot;Send 2 Day Appointment Reminder Email&quot;</description>
+        <name>AAA_2_Day_Appointment_Reminder_Email</name>
+        <label>AAA 2 Day Appointment Reminder Email</label>
+        <locationX>2426</locationX>
+        <locationY>768</locationY>
+        <actionName>ServiceAppointment.AAA_2_Day_Appointment_Reminder_Email</actionName>
+        <actionType>emailAlert</actionType>
+        <faultConnector>
+            <targetReference>Log_exception_record_0_0</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>This will send email if Service Appointment schedulestarttime date and today&apos;s date difference is greater than 7 as part of Workflow -&quot; Send 7 Day Appointment Reminder Email&quot;</description>
+        <name>AAA_7_Day_Appointment_Reminder_Email</name>
+        <label>AAA 7 Day Appointment Reminder Email</label>
+        <locationX>3746</locationX>
+        <locationY>768</locationY>
+        <actionName>ServiceAppointment.AAA_7_Day_Appointment_Reminder_Email</actionName>
+        <actionType>emailAlert</actionType>
+        <faultConnector>
+            <targetReference>Log_exception_record_0_0_0</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>This will send email when status is scheduled and service type is new installation  based on workflow &quot;Booking Confirmation Email&quot;</description>
+        <name>Booking_Confirmation</name>
+        <label>Booking Confirmation</label>
+        <locationX>50</locationX>
+        <locationY>768</locationY>
+        <actionName>ServiceAppointment.Booking_Confirmation</actionName>
+        <actionType>emailAlert</actionType>
+        <faultConnector>
+            <targetReference>Log_exception_record</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>This will send email when status is scheduled and service type is service Appointment  based on workflow &quot;Service Booking Confirmation Email&quot;</description>
+        <name>Service_Booking_Confirmation</name>
+        <label>Service Booking Confirmation</label>
+        <locationX>1106</locationX>
+        <locationY>768</locationY>
+        <actionName>ServiceAppointment.Service_Booking_Confirmation</actionName>
+        <actionType>emailAlert</actionType>
+        <faultConnector>
+            <targetReference>Log_exception_record_0</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>54.0</apiVersion>
+    <decisions>
+        <description>This will check if the service type is New installation Or Service Appointment workflow criteria &quot;Booking Confirmation Email&quot; and &quot;Service Booking Confirmation Email&quot;</description>
+        <name>Booking_Confirmation_Email</name>
+        <label>Booking Confirmation Email</label>
+        <locationX>1304</locationX>
+        <locationY>288</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>service_type_is_new_installation</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Scheduled</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Service_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>New Installation</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.In_Scheduler__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Getting_UserId_of_CRM_Superhero_booking_confirmation</targetReference>
+            </connector>
+            <label>service type is  new installation</label>
+        </rules>
+        <rules>
+            <name>service_type_is_service_appointment</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Scheduled</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Service_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Service Appointment</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.In_Scheduler__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Getting_UserId_of_CRM_Superhero_service</targetReference>
+            </connector>
+            <label>service type is service appointment</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking CRM Superhero ID Exist or Not</description>
+        <name>Checking_CRM_Superhero_ID_Exists_or_Not</name>
+        <label>Checking CRM Superhero ID Exists or Not</label>
+        <locationX>2822</locationX>
+        <locationY>528</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>user_is_exist</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Status_is_scheduled_and_subject_New_Installation</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Task</targetReference>
+            </connector>
+            <label>user is exist</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking CRM Superhero ID Exist or Not</description>
+        <name>Checking_CRM_Superhero_ID_Exists_or_Not_0</name>
+        <label>Checking CRM Superhero ID Exists or Not</label>
+        <locationX>4142</locationX>
+        <locationY>528</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>user_is_exist_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Status_is_scheduled_0_0</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Task_0</targetReference>
+            </connector>
+            <label>user is exist</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking CRM Superhero ID Exist or Not</description>
+        <name>Checking_CRM_Superhero_ID_Exists_or_Not_0_0</name>
+        <label>Checking CRM Superhero ID Exists or Not</label>
+        <locationX>5462</locationX>
+        <locationY>528</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>user_is_exist_0_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Service_Appointment_subject_is_New_Installation</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Task_0_0</targetReference>
+            </connector>
+            <label>user is exist</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking CRM Superhero ID Exist or Not</description>
+        <name>Checking_CRM_Superhero_ID_Exists_or_Not_0_0_0</name>
+        <label>Checking CRM Superhero ID Exists or Not</label>
+        <locationX>446</locationX>
+        <locationY>528</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>user_is_exist_0_0_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Status_is_scheduled_and_subject_New_Installation</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Task_0_0_0</targetReference>
+            </connector>
+            <label>user is exist</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking CRM Superhero ID Exist or Not</description>
+        <name>Checking_CRM_Superhero_ID_Exists_or_Not_0_0_0_0</name>
+        <label>Checking CRM Superhero ID Exists or Not</label>
+        <locationX>1502</locationX>
+        <locationY>528</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>user_is_exist_0_0_0_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Status_is_scheduled_and_subject_New_Installation</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Task_0_0_0_0</targetReference>
+            </connector>
+            <label>user is exist</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This will check if the Case Ticket Type is updated to Cancellation from Retention Queue and Customer is AAA and related to workflow criteria &quot;Send 24 Hour Appointment Reminder Email&quot; and &quot;Send 24 Hour Appointment Reminder Email_Service Ticket&quot;</description>
+        <name>Send_24_Day_Appointment_Reminder_Email_0_0_0</name>
+        <label>Send 24 Day Appointment Reminder Email</label>
+        <locationX>6056</locationX>
+        <locationY>288</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Service_Appointment_subject_is_New_Installation</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Scheduled</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Subject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>New Installation</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>scheduledStartDate2</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.In_Scheduler__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Getting_UserId_of_CRM_Superhero_24_hours</targetReference>
+            </connector>
+            <label>Service Appointment subject is New Installation</label>
+        </rules>
+        <rules>
+            <name>X24_ticketService_Appointment_subject_is_Service_Appointment</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Scheduled</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Subject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Service Appointment</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.In_Scheduler__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>scheduledStartDate2</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>AAA_24_Hour_Appointment_Reminder_Email_Service</targetReference>
+            </connector>
+            <label>24 ticketService Appointment subject is Service Appointment</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This will check if the service appointment status is Scheduled and subject is New Installation  related to workflow criteria &quot;Send 2 Day Appointment Reminder Email&quot;</description>
+        <name>Send_2_Day_Appointment_Reminder_Email_0</name>
+        <label>Send 2 Day Appointment Reminder Email</label>
+        <locationX>3152</locationX>
+        <locationY>288</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Status_is_scheduled_and_subject_New_Installation</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Scheduled</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Subject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>New Installation</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>scheduledStartDate</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.In_Scheduler__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Getting_UserId_of_CRM_Superhero</targetReference>
+            </connector>
+            <label>Status is scheduled and subject New Installation</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This will check if the service Appointment status is Scheduled and Subject is New Installation and Schedulestarttime date and today&apos;s date difference is greater than 7 and related to workflow criteria &quot;Send 7 Day Appointment Reminder Email&quot;</description>
+        <name>Send_7_Day_Appointment_Reminder_Email_0_0</name>
+        <label>Send 7 Day Appointment Reminder Email</label>
+        <locationX>4472</locationX>
+        <locationY>288</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Status_is_scheduled_0_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Scheduled</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Subject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>New Installation</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>scheduleStartDate3</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.In_Scheduler__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Getting_User_Id_of_CRM_Superhero</targetReference>
+            </connector>
+            <label>Status is scheduled and subject is New Installation</label>
+        </rules>
+    </decisions>
+    <description>This flow will contain all Email Alerts and respective actions which moved from Workflow/PB as part of A3SHCRSF3-198
+1. Workflow: Send 2 Day Appointment Reminder Email
+2. Workflow: Send 24 Hour Appointment Reminder Email
+3. Workflow: Send 24 Hour Appointment Reminder Email_Service Ticket
+4. Workflow: Send 7 Day Appointment Reminder Email
+5.Workflow:Booking Confirmation Email
+6.Service Booking Confirmation Email</description>
+    <formulas>
+        <name>DueDate</name>
+        <dataType>Date</dataType>
+        <expression>TODAY()</expression>
+    </formulas>
+    <formulas>
+        <name>scheduledStartDate</name>
+        <dataType>Boolean</dataType>
+        <expression>DATEVALUE({!$Record.SchedStartTime}) - TODAY() &gt;= 2</expression>
+    </formulas>
+    <formulas>
+        <name>scheduledStartDate1</name>
+        <dataType>Boolean</dataType>
+        <expression>DATEVALUE({!$Record.SchedStartTime}) - TODAY() &gt;= 1</expression>
+    </formulas>
+    <formulas>
+        <name>scheduledStartDate2</name>
+        <dataType>Boolean</dataType>
+        <expression>DATEVALUE({!$Record.SchedStartTime}) - TODAY() &gt;= 1</expression>
+    </formulas>
+    <formulas>
+        <name>scheduleStartDate3</name>
+        <dataType>Boolean</dataType>
+        <expression>DATEVALUE({!$Record.SchedStartTime}) - TODAY() &gt;= 7</expression>
+    </formulas>
+    <interviewLabel>Service Appointment email alerts {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Service Appointment email alerts</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Create_Task</name>
+        <label>Create Task</label>
+        <locationX>2426</locationX>
+        <locationY>648</locationY>
+        <connector>
+            <targetReference>AAA_2_Day_Appointment_Reminder_Email</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Log_exception_record_0_0_0_0_0_0_0_0</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Getting_UserId_of_CRM_Superhero.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>Normal</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>Sent AAA 2 Day Appointment Reminder Email</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_Task_0</name>
+        <label>Create Task</label>
+        <locationX>3746</locationX>
+        <locationY>648</locationY>
+        <connector>
+            <targetReference>AAA_7_Day_Appointment_Reminder_Email</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Log_exception_record_0_0_0_0_0_0_0_0_0</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Getting_User_Id_of_CRM_Superhero.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>Normal</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>Sent AAA 7 Day Appointment Reminder Email</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_Task_0_0</name>
+        <label>Create Task</label>
+        <locationX>5066</locationX>
+        <locationY>648</locationY>
+        <connector>
+            <targetReference>AAA_24_Hour_Appointment_Reminder_Email</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Log_exception_record_0_0_0_0_0_0_0_0_0_0</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Getting_UserId_of_CRM_Superhero_24_hours.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>Normal</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>Sent AAA 24 Hour Appointment Reminder Email</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_Task_0_0_0</name>
+        <label>Create Task</label>
+        <locationX>50</locationX>
+        <locationY>648</locationY>
+        <connector>
+            <targetReference>Booking_Confirmation</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Log_exception_record_0_0_0_0_0_0</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Getting_UserId_of_CRM_Superhero_booking_confirmation.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>Normal</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>Sent Booking Confirmation Email</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_Task_0_0_0_0</name>
+        <label>Create Task</label>
+        <locationX>1106</locationX>
+        <locationY>648</locationY>
+        <connector>
+            <targetReference>Service_Booking_Confirmation</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Log_exception_record_0_0_0_0_0_0_0</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Getting_UserId_of_CRM_Superhero_service.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>Normal</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>Service Booking Confirmation Email</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_exception_record</name>
+        <label>Log exception record</label>
+        <locationX>314</locationX>
+        <locationY>888</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown while Sending Booking Confirmation</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Service Appointment: Email Alerts and Respective Actions</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_exception_record_0</name>
+        <label>Log exception record</label>
+        <locationX>1370</locationX>
+        <locationY>888</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown while Sending Service Booking Confirmation</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Service Appointment: Email Alerts and Respective Actions</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_exception_record_0_0</name>
+        <label>Log exception record</label>
+        <locationX>2690</locationX>
+        <locationY>888</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown while Sending AAA 2 Day Appointment Reminder Email</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Service Appointment: Email Alerts and Respective Actions</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_exception_record_0_0_0</name>
+        <label>Log exception record</label>
+        <locationX>4010</locationX>
+        <locationY>888</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown while Sending AAA 7 Day Appointment Reminder Email</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Service Appointment: Email Alerts and Respective Actions</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_exception_record_0_0_0_0</name>
+        <label>Log exception record</label>
+        <locationX>5330</locationX>
+        <locationY>888</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown while Sending AAA 24 Hour Appointment Reminder Email</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Service Appointment: Email Alerts and Respective Actions</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_exception_record_0_0_0_0_0</name>
+        <label>Log exception record</label>
+        <locationX>6386</locationX>
+        <locationY>528</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown while Sending AAA 24 Hour Appointment Reminder Email Service</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Service Appointment: Email Alerts and Respective Actions</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_exception_record_0_0_0_0_0_0</name>
+        <label>Log exception record</label>
+        <locationX>578</locationX>
+        <locationY>768</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error is Thrown when Creating a Task After booking confirmation</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Service Appointment: Email Alerts and Respective Actions</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_exception_record_0_0_0_0_0_0_0</name>
+        <label>Log exception record</label>
+        <locationX>1634</locationX>
+        <locationY>768</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error is Thrown when Creating a Task After service confirmation</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Service Appointment: Email Alerts and Respective Actions</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_exception_record_0_0_0_0_0_0_0_0</name>
+        <label>Log exception record</label>
+        <locationX>2954</locationX>
+        <locationY>768</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error is Thrown when Creating a Task After 2 day apoointment</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Service Appointment: Email Alerts and Respective Actions</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_exception_record_0_0_0_0_0_0_0_0_0</name>
+        <label>Log exception record</label>
+        <locationX>4274</locationX>
+        <locationY>768</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error is Thrown when Creating a Task After 7 day apoointment</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Service Appointment: Email Alerts and Respective Actions</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_exception_record_0_0_0_0_0_0_0_0_0_0</name>
+        <label>Log exception record</label>
+        <locationX>5594</locationX>
+        <locationY>768</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error is Thrown when Creating a Task After 24 hour apoointment</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Service Appointment: Email Alerts and Respective Actions</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <name>Getting_User_Id_of_CRM_Superhero</name>
+        <label>Getting User Id of CRM Superhero</label>
+        <locationX>4142</locationX>
+        <locationY>408</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Checking_CRM_Superhero_ID_Exists_or_Not_0</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>LastName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Superhero</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Username</field>
+            <operator>StartsWith</operator>
+            <value>
+                <stringValue>crmsuperhero@aaa.com</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>User</object>
+        <queriedFields>Id</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Getting_UserId_of_CRM_Superhero</name>
+        <label>Getting UserId of CRM Superhero</label>
+        <locationX>2822</locationX>
+        <locationY>408</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Checking_CRM_Superhero_ID_Exists_or_Not</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>LastName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Superhero</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Username</field>
+            <operator>StartsWith</operator>
+            <value>
+                <stringValue>crmsuperhero@aaa.com</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>User</object>
+        <queriedFields>Id</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Getting_UserId_of_CRM_Superhero_24_hours</name>
+        <label>Getting UserId of CRM Superhero</label>
+        <locationX>5462</locationX>
+        <locationY>408</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Checking_CRM_Superhero_ID_Exists_or_Not_0_0</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>LastName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Superhero</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Username</field>
+            <operator>StartsWith</operator>
+            <value>
+                <stringValue>crmsuperhero@aaa.com</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>User</object>
+        <queriedFields>Id</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Getting_UserId_of_CRM_Superhero_booking_confirmation</name>
+        <label>Getting UserId of CRM Superhero booking confirmation</label>
+        <locationX>446</locationX>
+        <locationY>408</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Checking_CRM_Superhero_ID_Exists_or_Not_0_0_0</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>LastName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Superhero</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Username</field>
+            <operator>StartsWith</operator>
+            <value>
+                <stringValue>crmsuperhero@aaa.com</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>User</object>
+        <queriedFields>Id</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Getting_UserId_of_CRM_Superhero_service</name>
+        <label>Getting UserId of CRM Superhero</label>
+        <locationX>1502</locationX>
+        <locationY>408</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Checking_CRM_Superhero_ID_Exists_or_Not_0_0_0_0</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>LastName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Superhero</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Username</field>
+            <operator>StartsWith</operator>
+            <value>
+                <stringValue>crmsuperhero@aaa.com</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>User</object>
+        <queriedFields>Id</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>3554</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Booking_Confirmation_Email</targetReference>
+        </connector>
+        <object>ServiceAppointment</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <scheduledPaths>
+            <name>Send_2_Day_Appointment_Reminder_Email</name>
+            <connector>
+                <targetReference>Send_2_Day_Appointment_Reminder_Email_0</targetReference>
+            </connector>
+            <label>Send 2 Day Appointment Reminder Email</label>
+            <offsetNumber>-2</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
+            <recordField>SchedStartTime</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <scheduledPaths>
+            <name>Send_7_Day_Appointment_Reminder_Email</name>
+            <connector>
+                <targetReference>Send_7_Day_Appointment_Reminder_Email_0_0</targetReference>
+            </connector>
+            <label>Send 7 Day Appointment Reminder Email</label>
+            <offsetNumber>-7</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
+            <recordField>SchedStartTime</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <scheduledPaths>
+            <name>Send_24_Hour_Appointment_Reminder_Email</name>
+            <connector>
+                <targetReference>Send_24_Day_Appointment_Reminder_Email_0_0_0</targetReference>
+            </connector>
+            <label>Send 24 Hour Appointment Reminder Email</label>
+            <offsetNumber>-1</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
+            <recordField>SchedStartTime</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Draft</status>
+    <variables>
+        <name>UserId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

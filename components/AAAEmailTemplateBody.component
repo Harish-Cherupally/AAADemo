@@ -1,0 +1,191 @@
+<apex:component access="global"  controller="QuoteController">
+    <apex:attribute name="quoteid1" type="Id" description="Id of the quote" assignTo="{!QuoteId}"/>
+     <apex:attribute name="rendervalue" type="string" description="previewpage" assignTo="{!pdfpreview}" />
+    <div>
+        For the low monthly cost of $<b>{!quote.Monthly_Charge__c}</b> you can get trusted service with no hidden fees. 
+    </div>
+    <br/>
+    <div>
+        <!--
+        <div style="display: flex; justify-content: center; align-content: center; align-items: center; margin: auto; ">
+            <b>
+                
+            </b>
+        </div>
+        -->
+        <table cellpadding="0" cellspacing="0" border="0" style="table-layout: fixed;" align="center">
+            <tr>
+                <td style="text-align: center;">
+                    <b>
+                        <div style="font-size: large;padding: 10px ;box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;margin-bottom: 20px ;">
+                            Monthly Costs Breakdown
+                        </div>
+                    </b>
+                </td>
+            </tr>
+        </table>
+        <table cellpadding="0" cellspacing="0" border="0" style="table-layout: fixed;" align="center">
+            <tr>
+                <td style="text-align: center;">
+
+                    <div style="display: flex; justify-content: center; align-content: center; align-items: center; margin: auto; ">
+                        <br/>
+                        <table border = "1" cellspacing = "0" style="background:LightGray;" width="600px">
+                            <tr>
+                                <td>Estimated Monthly Service aFees<br/>
+                                    (Applicable taxes  shipping fees included)
+                                </td>
+                                <td>${!quote.Monthly_Monitoring_Amount_NEW__c}</td>
+                            </tr>
+                            <tr>
+                                <td>Estimated Monthly Equipment Costs</td>
+                                <td>${!quote.Monthly_Finance_Amount__c}</td>
+                            </tr>
+                            <tr>
+                                <td>Estimated Total Monthly Cost</td>
+                                <td>${!quote.Monthly_Charge__c}</td>
+                            </tr>
+                            <tr>
+                                <td>Monthly Fees after 36 months or<br/>
+                                    if Equipment is paid for upfront
+                                </td>
+                                <td>${!quote.Monthly_Monitoring_Amount_NEW__c}</td>
+                            </tr>
+                            <tr>
+                                <td>Down Payment </td>
+                               
+                                <td> $ {!IF(quote.Equipment_Down_Payment_Amount__c = null,0.00,quote.Equipment_Down_Payment_Amount__c)}</td>
+                                
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table cellpadding="0" cellspacing="0" border="0" style="table-layout: fixed;" align="center">
+            <tr>
+                <td style="text-align: center;">
+                    <div style="display: flex; justify-content: center; align-content: center; align-items: center; margin: auto; ">
+                        <br/><br/>
+                        <b>
+                            <div style="font-size: large;padding: 10px ;box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;margin-bottom: 20px ;margin-top: 20px ;">
+                                Equipment Costs Breakdown
+                            </div>
+                        </b>
+                        <br/>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table cellpadding="0" cellspacing="0" border="0" style="table-layout: fixed;" align="center">
+            <tr>
+                <td style="text-align: center;">
+                
+                    <div style="display: flex; justify-content: center; align-content: center; align-items: center; margin: auto; ">
+                        <table border = "1" cellspacing = "0" style="background:LightGray;" width="600px">
+                            <tr>
+                                <td><b>Product</b></td>
+                                <td><b>Quantity  </b></td>
+                                <td><b>Price/Unit</b></td>
+                                <td><b>Subtotal</b></td>
+                            </tr>
+                            <apex:repeat value="{!QuoteLineItem}" var="o">
+                                <tr>
+                                    <td>{!o.SBQQ__ProductName__c}</td>
+                                    <td>
+                                        <apex:outputText value="{0, number}">
+                                            <apex:param value="{!o.SBQQ__Quantity__c}" />
+                                        </apex:outputText>
+                                    </td>
+                                    <td>${!o.SBQQ__NetPrice__c}</td>
+                                    <td>${!o.SBQQ__NetTotal__c}</td>
+                                </tr>
+                            </apex:repeat>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table cellpadding="0" cellspacing="0" border="0" style="table-layout: fixed;" align="center">
+            <tr>
+                <td style="text-align: center;">
+                    <br/>
+                    <div style="display: flex; justify-content: center; align-content: center; align-items: center; margin: auto; ">
+                        <br/>
+                        <br/>
+                        <br/>
+                        <table border = "1" cellspacing = "0" style="background:LightGray;" width="600px">
+                            <tr>
+                                <td>
+                                    <b>
+                                        <h3>Equipment Total Cost</h3>
+                                    </b>
+                                </td>
+                                <td>$  {!quote.Available_for_Financing_Amount__c}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>
+                                        <h3>Installation Costs</h3>
+                                    </b>
+                                </td>
+                                <td>$  {!InstallationCostsORlabor}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>
+                                        <h3>Taxes, Shipping and Handling</h3>
+                                    </b>
+                                </td>
+                                <td>$  {!TaxesShippingAndHandling}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>
+                                        <h3>Total Equipment and  Labor Costs to Finance</h3>
+                                    </b>
+                                </td>
+                                <td>$  {!TotalEquipmentANdLaborCostsToFinance} </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    <br/>
+    <apex:outputPanel rendered="{!IF(rendervalue='preview',False,True)}">
+    <table align="center" width="540" height="30"> 
+        <tr>
+            <th bgcolor="#f45549" width="150">
+                <a href="https://crdev-smarthomesurvey.cs196.force.com/EmailTemapltes/apex/demoEmailTemplate?id={!quote.Id}&Status=AcceptWithFull" style=" font-weight: bold; font-family: Helvetica, Arial, sans-serif; text-decoration: none; width:100%; display:inline-block">
+                    <span style="color: #FFFFFF">
+                        Accept without Finance
+                    </span>
+                </a>
+            </th>
+            <th bgcolor="#f45549" width="150">
+                <a href="https://crdev-smarthomesurvey.cs196.force.com/EmailTemapltes/apex/demoEmailTemplate?id={!quote.Id}&Status=AcceptWithFinance" style=" font-weight: bold; font-family: Helvetica, Arial, sans-serif; text-decoration: none; width:100%; display:inline-block">
+                    <span style="color: #FFFFFF"> 
+                        Accept with Finance
+                    </span>
+                </a>
+            </th>
+         
+            <th bgcolor="#f45549" width="150" align="left">
+                <a href="https://crdev-smarthomesurvey.cs196.force.com/EmailTemapltes/apex/demoEmailTemplate?id={!quote.Id}&Status=Rejected" style=" font-weight: bold; font-family: Helvetica, Arial, sans-serif; text-decoration: none; width:100%; display:inline-block">
+                    <span style="color: #FFFFFF">
+                        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; Reject
+                    </span>
+                </a>
+            </th>
+        </tr>
+    </table>
+        </apex:outputPanel>
+    <br/>
+    <p> 
+        <div style="font-size: small;">This quote is non-binding and all prices and fees are subject to change.</div>
+    </p>
+</apex:component>

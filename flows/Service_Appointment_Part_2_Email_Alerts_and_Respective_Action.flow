@@ -1,0 +1,920 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Sending a Final Email Alert to Related Contact of Service Appointment as a remainder.
+Email Alert Name: AAA Non Response Reminder 12 Day Alert</description>
+        <name>Final_Email_Alert_as_a_Reminder</name>
+        <label>Final Email Alert as a Reminder</label>
+        <locationX>4010</locationX>
+        <locationY>768</locationY>
+        <actionName>ServiceAppointment.AAA_Non_Response_Reminder_Final_Alert</actionName>
+        <actionType>emailAlert</actionType>
+        <faultConnector>
+            <targetReference>Log_Exception_0_0_0</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>Sending an Email Alert to Related Contact of Service Appointment After 9 Days as a Reminder.
+Email Alert Name: AAA Non Response Reminder 9 Day Alert</description>
+        <name>Sending_a_Email_Alert_After_9_Days</name>
+        <label>Sending a Email Alert After 9 Days</label>
+        <locationX>2690</locationX>
+        <locationY>768</locationY>
+        <actionName>ServiceAppointment.AAA_Non_Response_Reminder_9_Day_Alert</actionName>
+        <actionType>emailAlert</actionType>
+        <faultConnector>
+            <targetReference>Log_Exception_0_0</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>Sending an Email Alert to Related Contact of Service Appointment After 3 Days as a Reminder.
+Email Alert Name: AAA Non Response Reminder 3 Day Alert</description>
+        <name>Sending_an_Email_Alert_After_3_Days</name>
+        <label>Sending an Email Alert After 3 Days</label>
+        <locationX>50</locationX>
+        <locationY>768</locationY>
+        <actionName>ServiceAppointment.AAA_Non_Response_Reminder_3_Day_Alert</actionName>
+        <actionType>emailAlert</actionType>
+        <faultConnector>
+            <targetReference>Log_Exception</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>Sending an Email Alert to Related Contact of Service Appointment After 6 Days as a Reminder.
+Email Alert Name: AAA Non Response Reminder 6 Day Alert.</description>
+        <name>Sending_an_Email_Alert_after_6_Days</name>
+        <label>Sending an Email Alert  after 6 Days</label>
+        <locationX>1370</locationX>
+        <locationY>768</locationY>
+        <actionName>ServiceAppointment.AAA_Non_Response_Reminder_6_Day_Alert</actionName>
+        <actionType>emailAlert</actionType>
+        <faultConnector>
+            <targetReference>Log_Exception_0</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>54.0</apiVersion>
+    <decisions>
+        <description>Checking CRM Superhero ID Exist or Not</description>
+        <name>Checking_CRM_Superhero_ID_Exists_or_Not_For_12Days</name>
+        <label>Checking CRM Superhero ID Exists or Not</label>
+        <locationX>4406</locationX>
+        <locationY>528</locationY>
+        <defaultConnectorLabel>UserId Doesn&apos;t Exist</defaultConnectorLabel>
+        <rules>
+            <name>UserId_Exist_0_0_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Creating_a_Task_and_Sending_Email_Alert_After_12_Final_Days</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Creating_a_Task_After_12_Days</targetReference>
+            </connector>
+            <label>UserId Exist</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking CRM Superhero ID Exist or Not</description>
+        <name>Checking_CRM_Superhero_ID_Exists_or_Not_for_3days</name>
+        <label>Checking CRM Superhero ID Exists or Not</label>
+        <locationX>446</locationX>
+        <locationY>528</locationY>
+        <defaultConnectorLabel>UserId Doesn&apos;t Exist</defaultConnectorLabel>
+        <rules>
+            <name>UserId_Exist</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Getting_UserId_of_CRM_Superhero_for_3days</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Creating_a_Task_After_3_Days</targetReference>
+            </connector>
+            <label>UserId Exist</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking CRM Superhero ID Exist or Not</description>
+        <name>Checking_CRM_Superhero_ID_Exists_or_Not_For_6days</name>
+        <label>Checking CRM Superhero ID Exists or Not</label>
+        <locationX>1766</locationX>
+        <locationY>528</locationY>
+        <defaultConnectorLabel>UserId Doesn&apos;t Exist</defaultConnectorLabel>
+        <rules>
+            <name>UserId_Exist_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Creating_a_Task_and_Sending_Email_Alert_After_6_Days</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Creating_a_Task_After_6_Days</targetReference>
+            </connector>
+            <label>UserId Exist</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking CRM Superhero ID Exist or Not</description>
+        <name>Checking_CRM_Superhero_ID_Exists_or_Not_For_9Days</name>
+        <label>Checking CRM Superhero ID Exists or Not</label>
+        <locationX>3086</locationX>
+        <locationY>528</locationY>
+        <defaultConnectorLabel>UserId Doesn&apos;t Exist</defaultConnectorLabel>
+        <rules>
+            <name>UserId_Exist_0_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Creating_a_Task_and_Sending_Email_Alert_After_9_Days</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Creating_a_Task_After_9_Days</targetReference>
+            </connector>
+            <label>UserId Exist</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking Conditions  Whether to Create a Task for Service Appointment and to Send a Reminder Mail Alert after 12 Days(Reminder Email Alert) to Not</description>
+        <name>Checking_Whether_to_Create_a_Task_and_Send_Reminder_Emails_After_12_Days_or_Not</name>
+        <label>Checking Whether to Create a Task and  Send Reminder Emails After 12 Days(Final Reminder) or Not</label>
+        <locationX>4736</locationX>
+        <locationY>288</locationY>
+        <defaultConnectorLabel>No Need To Create a Task or Send Email Alert</defaultConnectorLabel>
+        <rules>
+            <name>Creating_a_Task_and_Sending_Email_Alert_After_12_Final_Days</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>None</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Duration</leftValueReference>
+                <operator>LessThan</operator>
+                <rightValue>
+                    <numberValue>9.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Subject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>New Installation</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Getting_UserId_of_CRM_Superhero_for_12Days</targetReference>
+            </connector>
+            <label>Creating a Task and Sending Email Alert After 12(Final) Days</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking Conditions  Whether to Create a Task for Service Appointment and to Send a Reminder Mail Alert after 9 Days  to Not</description>
+        <name>Checking_Whether_to_Create_a_Task_and_Send_Reminder_Emails_After_3_Days_or_Not</name>
+        <label>Checking Whether to Create a Task and  Send Reminder Emails After 3 Days or Not</label>
+        <locationX>776</locationX>
+        <locationY>288</locationY>
+        <defaultConnectorLabel>No Need To Create a Task or Send Email Alert</defaultConnectorLabel>
+        <rules>
+            <name>Creating_a_Task_and_Sending_Email_Alert_After_3_Days</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>None</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Duration</leftValueReference>
+                <operator>LessThan</operator>
+                <rightValue>
+                    <numberValue>9.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Subject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>New Installation</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Getting_UserId_of_CRM_Superhero_for_3days</targetReference>
+            </connector>
+            <label>Creating a Task and Sending Email Alert After 3 Days</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking Conditions  Whether to Create a Task for Service Appointment and to Send a Reminder Mail Alert after 6 Days to Not</description>
+        <name>Checking_Whether_to_Create_a_Task_and_Send_Reminder_Emails_After_6_Days_or_Not</name>
+        <label>Checking Whether to Create a Task and  Send Reminder Emails After 6 Days or Not</label>
+        <locationX>2096</locationX>
+        <locationY>288</locationY>
+        <defaultConnectorLabel>No Need To Create a Task or  Send Email Alert</defaultConnectorLabel>
+        <rules>
+            <name>Creating_a_Task_and_Sending_Email_Alert_After_6_Days</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>None</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Duration</leftValueReference>
+                <operator>LessThan</operator>
+                <rightValue>
+                    <numberValue>9.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Subject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>New Installation</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Getting_UserId_of_CRM_Superhero_for_6Days</targetReference>
+            </connector>
+            <label>Creating a Task and Sending Email Alert After 6 Days</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking Conditions  Whether to Create a Task for Service Appointment and to Send a Reminder Mail Alert after 9 Days to Not</description>
+        <name>Checking_Whether_to_Create_a_Task_and_Send_Reminder_Emails_After_9_Days_or_Not</name>
+        <label>Checking Whether to Create a Task and  Send Reminder Emails After 9 Days or Not</label>
+        <locationX>3416</locationX>
+        <locationY>288</locationY>
+        <defaultConnectorLabel>No Need To Create a Task or  Send Email Alert</defaultConnectorLabel>
+        <rules>
+            <name>Creating_a_Task_and_Sending_Email_Alert_After_9_Days</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>None</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Duration</leftValueReference>
+                <operator>LessThan</operator>
+                <rightValue>
+                    <numberValue>9.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Subject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>New Installation</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Getting_UserId_of_CRM_Superhero_For_9Days</targetReference>
+            </connector>
+            <label>Creating a Task and Sending Email Alert After 9 Days</label>
+        </rules>
+    </decisions>
+    <description>Creating Tasks and Sending Email Alert to Related Contacts of Service Appointments after 3,6,9,12 Days Respectively.
+Story No: A3SHCRSF3-198
+WORKFLOW USED:
+1. Send Scheduling Reminder Emails</description>
+    <formulas>
+        <description>Checking Record is New or Not.</description>
+        <name>isNew</name>
+        <dataType>Boolean</dataType>
+        <expression>isNew()</expression>
+    </formulas>
+    <interviewLabel>Service Appointment: Part 2 Email Alerts and Respective Actions {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Service Appointment: Part 2 Email Alerts and Respective Actions</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <description>Creating a Task After 12 Days on Service Appointment.
+Note: 12Th Day Email Alert is Final Alert.</description>
+        <name>Creating_a_Task_After_12_Days</name>
+        <label>Creating a Task After 12 Days</label>
+        <locationX>4010</locationX>
+        <locationY>648</locationY>
+        <connector>
+            <targetReference>Final_Email_Alert_as_a_Reminder</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Log_Exception_0_0_0_0_0_0_0</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Getting_UserId_of_CRM_Superhero_for_12Days.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>Normal</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>Sent	AAA Non Response Reminder 12 Day Alert</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Creating a Task After 3 Days on Service Appointment.</description>
+        <name>Creating_a_Task_After_3_Days</name>
+        <label>Creating  a Task After 3 Days</label>
+        <locationX>50</locationX>
+        <locationY>648</locationY>
+        <connector>
+            <targetReference>Sending_an_Email_Alert_After_3_Days</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Log_Exception_0_0_0_0</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Getting_UserId_of_CRM_Superhero_for_3days.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>Normal</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>Sent	AAA Non Response Reminder 3 Day Alert</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Creating a Task After 6 Days on Service Appointment.</description>
+        <name>Creating_a_Task_After_6_Days</name>
+        <label>Creating a Task After 6  Days</label>
+        <locationX>1370</locationX>
+        <locationY>648</locationY>
+        <connector>
+            <targetReference>Sending_an_Email_Alert_after_6_Days</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Log_Exception_0_0_0_0_0</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Getting_UserId_of_CRM_Superhero_for_6Days.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>Normal</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>Sent	AAA Non Response Reminder 6 Day Alert</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Creating a Task After 9 Days on Service Appointment.</description>
+        <name>Creating_a_Task_After_9_Days</name>
+        <label>Creating a Task After 9 Days</label>
+        <locationX>2690</locationX>
+        <locationY>648</locationY>
+        <connector>
+            <targetReference>Sending_a_Email_Alert_After_9_Days</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Log_Exception_0_0_0_0_0_0</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Getting_UserId_of_CRM_Superhero_For_9Days.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>Normal</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>Sent AAA Non Response Reminder 9 Day Alert</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Log Exception</description>
+        <name>Log_Exception</name>
+        <label>Log Exception</label>
+        <locationX>314</locationX>
+        <locationY>888</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <stringValue>Error is Thrown when Sending 3 Day Alert Reminder</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Service Appointment: Part-2 Creating Tasks and Sending Email Alert to Related Contact</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Log Exception</description>
+        <name>Log_Exception_0</name>
+        <label>Log Exception</label>
+        <locationX>1634</locationX>
+        <locationY>888</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <stringValue>Error is Thrown when Sending 6 Day Alert Reminder</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Service Appointment: Part-2 Creating Tasks and Sending Email Alert to Related Contact</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Log Exception</description>
+        <name>Log_Exception_0_0</name>
+        <label>Log Exception</label>
+        <locationX>2954</locationX>
+        <locationY>888</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <stringValue>Error is Thrown when Sending 9 Day Alert Reminder</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Service Appointment: Part 2 Email Alerts and Respective Actions</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Log Exception</description>
+        <name>Log_Exception_0_0_0</name>
+        <label>Log Exception</label>
+        <locationX>4274</locationX>
+        <locationY>888</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <stringValue>Error is Thrown when Sending 12 Day Alert Reminder</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Service Appointment: Part 2 Email Alerts and Respective Actions</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Log Exception</description>
+        <name>Log_Exception_0_0_0_0</name>
+        <label>Log Exception</label>
+        <locationX>578</locationX>
+        <locationY>768</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <stringValue>Error is Thrown when Creating a Task After 3days</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Service Appointment: Part-2 Creating Tasks and Sending Email Alert to Related Contact</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Log Exception</description>
+        <name>Log_Exception_0_0_0_0_0</name>
+        <label>Log Exception</label>
+        <locationX>1898</locationX>
+        <locationY>768</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <stringValue>Error is Thrown when Creating a Task After 6 days</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Service Appointment: Part 2 Email Alerts and Respective Actions</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Log Exception</description>
+        <name>Log_Exception_0_0_0_0_0_0</name>
+        <label>Log Exception</label>
+        <locationX>3218</locationX>
+        <locationY>768</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <stringValue>Error is Thrown when Creating a Task After 9 days</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Service Appointment: Part 2 Email Alerts and Respective Actions</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Log Exception</description>
+        <name>Log_Exception_0_0_0_0_0_0_0</name>
+        <label>Log Exception</label>
+        <locationX>4538</locationX>
+        <locationY>768</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <stringValue>Error is Thrown when Creating a Task After 12 days</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Service Appointment: Part 2 Email Alerts and Respective Actions</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <description>Getting UserId of CRM Superhero</description>
+        <name>Getting_UserId_of_CRM_Superhero_for_12Days</name>
+        <label>Getting UserId of CRM Superhero</label>
+        <locationX>4406</locationX>
+        <locationY>408</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Checking_CRM_Superhero_ID_Exists_or_Not_For_12Days</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Username</field>
+            <operator>StartsWith</operator>
+            <value>
+                <stringValue>crmsuperhero@aaa.com</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>User</object>
+        <queriedFields>Id</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Getting UserId of CRM Superhero</description>
+        <name>Getting_UserId_of_CRM_Superhero_for_3days</name>
+        <label>Getting UserId of CRM Superhero</label>
+        <locationX>446</locationX>
+        <locationY>408</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Checking_CRM_Superhero_ID_Exists_or_Not_for_3days</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Username</field>
+            <operator>StartsWith</operator>
+            <value>
+                <stringValue>crmsuperhero@aaa.com</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>User</object>
+        <queriedFields>Id</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Getting UserId of CRM Superhero</description>
+        <name>Getting_UserId_of_CRM_Superhero_for_6Days</name>
+        <label>Getting UserId of CRM Superhero</label>
+        <locationX>1766</locationX>
+        <locationY>408</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Checking_CRM_Superhero_ID_Exists_or_Not_For_6days</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Username</field>
+            <operator>StartsWith</operator>
+            <value>
+                <stringValue>crmsuperhero@aaa.com</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>User</object>
+        <queriedFields>Id</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Getting UserId of CRM Superhero</description>
+        <name>Getting_UserId_of_CRM_Superhero_For_9Days</name>
+        <label>Getting UserId of CRM Superhero</label>
+        <locationX>3086</locationX>
+        <locationY>408</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Checking_CRM_Superhero_ID_Exists_or_Not_For_9Days</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Username</field>
+            <operator>StartsWith</operator>
+            <value>
+                <stringValue>crmsuperhero@aaa.com</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>User</object>
+        <queriedFields>Id</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>2135</locationX>
+        <locationY>0</locationY>
+        <object>ServiceAppointment</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <scheduledPaths>
+            <name>X3_Days_After_Service_Appointment_Created_Date</name>
+            <connector>
+                <targetReference>Checking_Whether_to_Create_a_Task_and_Send_Reminder_Emails_After_3_Days_or_Not</targetReference>
+            </connector>
+            <label>3 Days After Service Appointment: Created Date</label>
+            <offsetNumber>3</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
+            <recordField>CreatedDate</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <scheduledPaths>
+            <name>X6_Days_After_Service_Appointment_Created_Date</name>
+            <connector>
+                <targetReference>Checking_Whether_to_Create_a_Task_and_Send_Reminder_Emails_After_6_Days_or_Not</targetReference>
+            </connector>
+            <label>6 Days After Service Appointment: Created Date</label>
+            <offsetNumber>6</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
+            <recordField>CreatedDate</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <scheduledPaths>
+            <name>X9_Days_After_Service_Appointment_Created_Date</name>
+            <connector>
+                <targetReference>Checking_Whether_to_Create_a_Task_and_Send_Reminder_Emails_After_9_Days_or_Not</targetReference>
+            </connector>
+            <label>9 Days After Service Appointment: Created Date</label>
+            <offsetNumber>9</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
+            <recordField>CreatedDate</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <scheduledPaths>
+            <name>X12_Days_After_Service_Appointment_Created_Date</name>
+            <connector>
+                <targetReference>Checking_Whether_to_Create_a_Task_and_Send_Reminder_Emails_After_12_Days_or_Not</targetReference>
+            </connector>
+            <label>12 Days After Service Appointment: Created Date</label>
+            <offsetNumber>12</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
+            <recordField>CreatedDate</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

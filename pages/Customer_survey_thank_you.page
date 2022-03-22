@@ -1,0 +1,113 @@
+<apex:page standardController="case" showHeader="false" sidebar="false" extensions="SurveyPageExtension" docType="html-5.0" >
+    <apex:slds />
+    <html>
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no,"/>
+            <link rel="shortcut icon" type="image/png" href="{!if(case_Obj.AR_Customer_Userdef__c == 'AAA', 'https://a3smarthome--shomedevsb--c.documentforce.com/sfc/dist/version/renditionDownload?rendition=ORIGINAL_Png&versionId=0681k0000018dDC&operationContext=DELIVERY&contentId=05T1k000004IaK2&page=0&d=/a/1k0000004P4w/ls56bL9KU6J1pj7KK_WiucOYkI_Jv3tqibf9WIr.ij8&oid=00D1k0000009dOR&dpt=null&viewId=', 'https://a3smarthome--shomedevsb--c.documentforce.com/sfc/dist/version/renditionDownload?rendition=ORIGINAL_Png&versionId=0681k0000018dG1&operationContext=DELIVERY&contentId=05T1k000004IaFC&page=0&d=/a/1k0000004P4h/fFgZIzQ6RYmObXoOPIUkz8y9yLf7it4Snd8VeCugnIQ&oid=00D1k0000009dOR&dpt=null&viewId=')}" />
+            <style>
+                @font-face {
+                    font-family: Smart Bold;
+                    font-style: normal;
+                    font-weight: bold;
+                    src: url({!URLFOR($Resource.Smart_Bold_Font)});
+                }
+                @font-face {
+                    font-family: Smart;
+                    font-style: normal;
+                    font-weight: normal;
+                    src: url({!URLFOR($Resource.Smart_Regular_Font)});
+                }
+                .center {
+                    margin: auto;
+                    max-width: 627px;
+                    min-width: 490px;
+                    font-family: Smart;
+                    padding-left: 10px;
+                    padding-right: 10px;
+                }
+                .header {
+                    height: 200px;
+                }
+                .header_mobile {
+                    display: none;
+                    height: 75px;
+                    background-color: #da291c;
+                }
+                .center p {
+                    color: #737373;
+                    font-family: Smart Bold;
+                    font-size: 27px;
+                    letter-spacing: 0;
+                }
+                .line {
+                    height: 1px;
+                    border-top: solid 2px #737373;
+                    margin-top: 7px;
+                    margin-bottom: 30px;
+                }
+                .thank_you_message p {
+                    font-family: Smart;
+                    font-size: 16px;
+                    letter-spacing: 0.3px;
+                }
+                footer {
+                    height: 59px;
+                    background-color: black;
+                }
+                footer div {
+                    color: white;
+                    font-family: Smart;
+                    font-size: 11px;
+                    font-stretch: normal;
+                    font-style: normal;
+                    font-weight: normal;
+                    height: 59px;
+                    letter-spacing: 0.08px;
+                    line-height: 59px;
+                }
+                @media (max-width : 640px) {
+                    .header img {
+                        position: relative;
+                        margin-top: -180px;
+                    }
+                    .header {
+                        height: 65px;
+                    }
+                    .header_mobile {
+                        display: block;
+                        min-width: 490px;
+                    }
+                    footer {
+                        min-width: 490px;
+                    }
+                }
+                @media (min-height: 380px) {
+                    footer {
+                        position: absolute;
+                        bottom: 0;
+                        width: 100%;
+                    }
+                }
+            </style>
+        </head>
+        <body>
+            <div class="header_mobile">
+            </div>
+            <div class="center">
+                <div class="header">
+                    <img alt="Logo" src="{!if($CurrentPage.parameters.AR_Customer_Userdef__c == 'AAA', 'https://a3smarthome--shomedevsb--c.documentforce.com/sfc/dist/version/renditionDownload?rendition=ORIGINAL_Png&versionId=0681k0000018ZTu&operationContext=DELIVERY&contentId=05T1k000004II0X&page=0&d=/a/1k0000004OwO/vZCPWVUUOufps6dQ3p6BqFEmq8bH1YCEpdSann_WI_8&oid=00D1k0000009dOR&dpt=null&viewId=', 'https://a3smarthome--shomedevsb--c.documentforce.com/sfc/dist/version/renditionDownload?rendition=ORIGINAL_Png&versionId=0681k0000018ZWj&operationContext=DELIVERY&contentId=05T1k000004II1G&page=0&d=/a/1k0000004Owd/rgjLBl5bMPTy2kFU2vQRz0f0hL6tTGH.7z9En03BPHY&oid=00D1k0000009dOR&dpt=null&viewId=')}"/>
+                </div>
+                <p>Thanks for your feedback!</p>
+                <div class="line"></div>
+                <div class="thank_you_message">
+                    <p>We are committed to using your feedback to continuously improve our service.</p>
+                </div>
+            </div>
+            <footer>
+                <div class="center">
+                    &copy;<script>document.write(new Date().getFullYear())</script> {!if($CurrentPage.parameters.AR_Customer_Userdef__c == 'AAA', 'AAA', 'A3')} Smart Home LP
+                </div>
+            </footer>
+        </body>
+    </html>
+</apex:page>

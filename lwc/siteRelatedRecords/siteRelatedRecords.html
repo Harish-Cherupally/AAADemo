@@ -1,0 +1,23 @@
+<template>
+    <div class= "clearCss"><lightning-button variant="brand" label="Clear" title="To clear the filter" onclick={refreshRelatedList} ></lightning-button>
+    </div>
+    <template if:true={listRelatedItems}>    
+        <template for:each={listRelatedItems} for:item="relatedItem">
+            <div class="slds-tabs_default relatedItemCss" key={$index}>
+                <ul class="slds-tabs_default__nav" role="tablist">
+                    <li class="slds-tabs_default__item slds-is-active" title="Item One" role="presentation">
+                        <a class="slds-tabs_default__link" href="#" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-default-1">{relatedItem.strTableName}</a>
+                    </li>
+                </ul>
+                <div class="slds-tabs_default__content slds-show" role="tabpanel">
+                    <div class="pointer"><c-custom-datatable action={action} 
+                        table-data={relatedItem.listData}
+                        columns={relatedItem.listColumns}
+                        hide-checkbox-column="true"
+                        onrowclick={filterRecords}>
+                    </c-custom-datatable></div>
+                </div>
+            </div>
+        </template>
+    </template>
+</template>

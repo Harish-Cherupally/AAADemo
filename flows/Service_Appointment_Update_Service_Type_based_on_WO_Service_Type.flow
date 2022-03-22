@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>53.0</apiVersion>
+    <assignments>
+        <description>Update Service Type on SA based on its related WO</description>
+        <name>Update_Service_Type</name>
+        <label>Update Service Type</label>
+        <locationX>314</locationX>
+        <locationY>671</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Service_Type__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Work_Order_Data.Service_Type__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Issue_Code__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Work_Order_Data.Issue_Code__c</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Update Service Type on SA based on its related WO</description>
+        <name>Update_Service_TypeDealer</name>
+        <label>Update Service TypeDealer</label>
+        <locationX>50</locationX>
+        <locationY>671</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Service_Type__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Work_Order_Data.Service_Type__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Issue_Code__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Work_Order_Data.Issue_Code__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.RecordTypeId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>DealerRecordType_SA</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <name>checkWORecordType</name>
+        <label>checkWORecordType</label>
+        <locationX>182</locationX>
+        <locationY>551</locationY>
+        <defaultConnector>
+            <targetReference>Update_Service_Type</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>IsDealerRecordType</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Work_Order_Data.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Dealer</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Service_TypeDealer</targetReference>
+            </connector>
+            <label>IsDealerRecordType</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>check if work order retrieved exist or not</description>
+        <name>Is_Work_Order_Exist</name>
+        <label>Is Work Order Exist</label>
+        <locationX>380</locationX>
+        <locationY>431</locationY>
+        <defaultConnectorLabel>Work Order Don&apos;t Exist</defaultConnectorLabel>
+        <rules>
+            <name>Work_Order_Exists</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Work_Order_Data</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Service_Type__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>checkWORecordType</targetReference>
+            </connector>
+            <label>Work Order Exists</label>
+        </rules>
+    </decisions>
+    <description>This flow updates SA Service Type based on WO Service Type</description>
+    <formulas>
+        <name>DealerRecordType_SA</name>
+        <dataType>String</dataType>
+        <expression>{!$Label.Dealer_ServiceAppointmentRecordTypeId}</expression>
+    </formulas>
+    <interviewLabel>Service Appointment: Update Service Type based on WO Service Type {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Service Appointment: Update Service Type based on WO Service Type</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>This will bring the related work order</description>
+        <name>Get_Work_Order_Data</name>
+        <label>Get Work Order Data</label>
+        <locationX>380</locationX>
+        <locationY>311</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Is_Work_Order_Exist</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.ParentRecordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>WorkOrder</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Service_Type__c</queriedFields>
+        <queriedFields>Issue_Code__c</queriedFields>
+        <queriedFields>Installation_Type__c</queriedFields>
+        <queriedFields>RecordTypeId</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>254</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Work_Order_Data</targetReference>
+        </connector>
+        <object>ServiceAppointment</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

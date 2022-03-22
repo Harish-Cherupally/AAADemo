@@ -1,0 +1,884 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>This will send email for the Case based on the workflow &quot;A3 Send Email When Case Moved to Cancellation&quot;</description>
+        <name>Send_A3_Cancellation_Letter</name>
+        <label>Send A3 Cancellation Letter</label>
+        <locationX>666</locationX>
+        <locationY>1008</locationY>
+        <actionName>Case.Send_A3_Cancellation_Letter</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Is_Case_Category_is_General_Callback</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Log_Exception_record_0</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>This will send email if Case is created less than 48hrs and related to A3 organization as part of &quot;Process Builder - Required Update 48 Hour Callback&quot;</description>
+        <name>Send_Email_as_48_hour_alert_for_A3</name>
+        <label>Send Email as 48 hour alert for A3</label>
+        <locationX>1986</locationX>
+        <locationY>528</locationY>
+        <actionName>Case.General_Callback_48_Hour_Alert_A3</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>This_will_Create_Email_Message_Record_A3</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Log_Exception_record_0_0_0_0_0</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>This will send email as part of A3 related to PB &quot;MX Attempt To Contact&quot;</description>
+        <name>Send_Email_as_part_of_A3</name>
+        <label>Send Email as part of A3</label>
+        <locationX>578</locationX>
+        <locationY>2328</locationY>
+        <actionName>Case.MX_Attempt_to_Contact_A3</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Create_Email_Message_Record_as_part_of_A3</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Log_Exception_record_0_0_0_0</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>This will send email as part of AAA related to &quot;MX Attempt To Contact&quot; PB</description>
+        <name>Send_Email_as_part_of_AAA</name>
+        <label>Send Email as part of AAA</label>
+        <locationX>50</locationX>
+        <locationY>2328</locationY>
+        <actionName>Case.MX_Attempt_to_Contact_AAA</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Create_Email_Message_Record_as_part_of_AAA</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Log_Exception_record_0_0_0</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>This will send email if Case created less than 48hrs and related to AAA organization as part of Process Builder - Required Update 48 Hour Callback</description>
+        <name>Send_Email_as_part_of_AAA_before_48hrs</name>
+        <label>Send Email as part of AAA before 48hrs</label>
+        <locationX>1458</locationX>
+        <locationY>528</locationY>
+        <actionName>Case.General_Callback_48_Hour_Alert_AAA</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>This_will_Create_Email_Message_Record</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Log_Exception_record_0_0_0_0_0_0</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>This will send email to MX Seniors as part of PB &quot;General Callback To MX Seniors&quot;</description>
+        <name>Send_Email_to_MX_Seniors_for_General_Callback_Category_Cases</name>
+        <label>Send Email to MX Seniors for General Callback Category Cases</label>
+        <locationX>666</locationX>
+        <locationY>1608</locationY>
+        <actionName>Case.General_Callback_To_MX_Seniors</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>MX_Attempt_to_Contact</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Log_Exception_record_0_0</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>This will send email when Case ticket type got Cancelled based on workflow &quot;AAA Send Email When Case Moved to Cancellation&quot;</description>
+        <name>Sending_AAA_Cancellation_Letter</name>
+        <label>Sending AAA Cancellation Letter</label>
+        <locationX>666</locationX>
+        <locationY>408</locationY>
+        <actionName>Case.Send_AAA_Cancellation_Letter</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Check_if_Case_Ticket_Type_is_updated_to_Cancellation_and_Customer_is_A3</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Log_Exception_record</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>54.0</apiVersion>
+    <decisions>
+        <description>This will check if the Case Ticket Type is updated to Cancellation from Retention Queue and Customer is A3 and related to workflow criteria &quot;A3 Send Email When Case Moved to Cancellation&quot;</description>
+        <name>Check_if_Case_Ticket_Type_is_updated_to_Cancellation_and_Customer_is_A3</name>
+        <label>Check if Case Ticket Type is updated to Cancellation from Retention Queue and Customer is A3</label>
+        <locationX>930</locationX>
+        <locationY>888</locationY>
+        <defaultConnector>
+            <targetReference>Is_Case_Category_is_General_Callback</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>A3 Case Ticket Type not updated to Cancellation</defaultConnectorLabel>
+        <rules>
+            <name>Case_Ticket_Type_updated_to_Cancellation_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>IsNew</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior.Ticket_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Retention Queue</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Ticket_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Cancellation</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.AR_Customer_Userdef__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>A3</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_A3_Cancellation_Letter</targetReference>
+            </connector>
+            <label>A3 Case Ticket Type updated to Cancellation (Updation)</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This will check if the Case Ticket Type is updated to Cancellation from Retention Queue and Customer is AAA and related to workflow criteria &quot;AAA Send Email When Case Moved to Cancellation&quot;</description>
+        <name>Check_if_Case_Ticket_Type_is_updated_to_Cancellation_and_Customer_is_AAA</name>
+        <label>Check if Case Ticket Type is updated to Cancellation from Retention Queue and Customer is AAA</label>
+        <locationX>930</locationX>
+        <locationY>288</locationY>
+        <defaultConnector>
+            <targetReference>Check_if_Case_Ticket_Type_is_updated_to_Cancellation_and_Customer_is_A3</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>AAA Case Ticket Type not updated to Cancellation</defaultConnectorLabel>
+        <rules>
+            <name>Case_Ticket_Type_updated_to_Cancellation</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>IsNew</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior.Ticket_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Retention Queue</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Ticket_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Cancellation</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.AR_Customer_Userdef__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>AAA</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Sending_AAA_Cancellation_Letter</targetReference>
+            </connector>
+            <label>AAA Case Ticket Type updated to Cancellation (Updation)</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This will check if the Case Category is &quot;General Callback&quot; or not as part of PB &quot;General Callback To MX Seniors&quot;</description>
+        <name>Is_Case_Category_is_General_Callback</name>
+        <label>Is Case Category is General Callback</label>
+        <locationX>930</locationX>
+        <locationY>1488</locationY>
+        <defaultConnector>
+            <targetReference>MX_Attempt_to_Contact</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not General Call Back Category Case</defaultConnectorLabel>
+        <rules>
+            <name>It_s_General_Call_Back_Category</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Owner_Queue_Name__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Retention</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Record_Type_Name__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Support Case</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Category__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>General Callback</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Email_to_MX_Seniors_for_General_Callback_Category_Cases</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>It&apos;s General Call Back Category</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>check whether Case is created greeater than 48hours  as part of PB &quot; Required Update 48 Hour Callback&quot;</description>
+        <name>Is_Case_created_greater_than_48_hours</name>
+        <label>Is Case created greater than 48 hours</label>
+        <locationX>930</locationX>
+        <locationY>2904</locationY>
+        <defaultConnectorLabel>Not Eligible Case</defaultConnectorLabel>
+        <rules>
+            <name>Case_greater_less_than_48</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Category__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>General Callback</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed No Contact</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.CreatedDate</leftValueReference>
+                <operator>LessThan</operator>
+                <rightValue>
+                    <elementReference>twodaysbeforetime</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.ContactEmail</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Owner_Queue_Name__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Retention</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Record_Type_Name__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Support Case</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Is_Case_related_to_AAA_or_A3_organization</targetReference>
+            </connector>
+            <label>Case greater less than 48</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>check whether Case is created less than 48hours  as part of PB &quot; Required Update 48 Hour Callback&quot;</description>
+        <name>Is_Case_created_less_than_48_hours</name>
+        <label>Is Case created less than 48 hours</label>
+        <locationX>2382</locationX>
+        <locationY>288</locationY>
+        <defaultConnectorLabel>Not Eligible Case</defaultConnectorLabel>
+        <rules>
+            <name>Case_created_less_than_48</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Category__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>General Callback</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed No Contact</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.CreatedDate</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <elementReference>twodaysbeforetime</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.ContactEmail</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Owner_Queue_Name__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Retention</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Record_Type_Name__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Support Case</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Is_Case_related_to_AAA_or_A3_organization</targetReference>
+            </connector>
+            <label>Case created less than 48</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This will check if Case is related to AAA or A3 Organization</description>
+        <name>Is_Case_related_to_AAA_or_A3_organization</name>
+        <label>Is Case related to AAA or A3 organization</label>
+        <locationX>1986</locationX>
+        <locationY>408</locationY>
+        <defaultConnectorLabel>Not Valid Organization</defaultConnectorLabel>
+        <rules>
+            <name>AAA_Organization</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.AR_Customer_Userdef__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>AAA</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Email_as_part_of_AAA_before_48hrs</targetReference>
+            </connector>
+            <label>AAA Organization</label>
+        </rules>
+        <rules>
+            <name>A3_Organization</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.AR_Customer_Userdef__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>A3</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Email_as_48_hour_alert_for_A3</targetReference>
+            </connector>
+            <label>A3 Organization</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This will check if Case is related to AAA or A3 Organization</description>
+        <name>Is_Case_related_to_AAA_or_A3_organization_0</name>
+        <label>Is Case related to AAA or A3 organization</label>
+        <locationX>578</locationX>
+        <locationY>2208</locationY>
+        <defaultConnector>
+            <targetReference>Is_Case_created_greater_than_48_hours</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Valid Organization</defaultConnectorLabel>
+        <rules>
+            <name>AAA_Organization_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.AR_Customer_Userdef__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>AAA</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Email_as_part_of_AAA</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>AAA Organization</label>
+        </rules>
+        <rules>
+            <name>A3_Organization_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.AR_Customer_Userdef__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>A3</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Email_as_part_of_A3</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>A3 Organization</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>This will check if Case Status is &quot;Closed No Contact&quot; and few other factors as part of PB &quot;MX Attempt To Contact&quot;</description>
+        <name>MX_Attempt_to_Contact</name>
+        <label>MX Attempt to Contact</label>
+        <locationX>930</locationX>
+        <locationY>2088</locationY>
+        <defaultConnector>
+            <targetReference>Is_Case_created_greater_than_48_hours</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Status is not &quot;Closed No Contact&quot;</defaultConnectorLabel>
+        <rules>
+            <name>Status_is_Closed_No_Contact</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed No Contact</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Category__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Collections</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Category__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Movers</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Category__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Cancellations</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Category__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Service Quality</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.ContactEmail</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Owner_Queue_Name__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Retention</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Record_Type_Name__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Support Case</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Is_Case_related_to_AAA_or_A3_organization_0</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>Status is Closed No Contact</label>
+        </rules>
+    </decisions>
+    <description>This flow will contain all Email Alerts and respective actions which moved from Workflow/PB as part of A3SHCRSF3-198
+1. Workflow: AAA Send Email When Case Moved to Cancellation
+2. Workflow: A3 Send Email When Case Moved to Cancellation
+3. Process Builder - General Callback To MX Seniors.
+4.Process Builder - MX Attempt To Contact
+5.Process Builder - Required Update 48 Hour Callback</description>
+    <formulas>
+        <description>This will let to know that Case is getting inserted</description>
+        <name>IsNew</name>
+        <dataType>Boolean</dataType>
+        <expression>ISNew()</expression>
+    </formulas>
+    <formulas>
+        <description>this will give time days prior to current time</description>
+        <name>twodaysbeforetime</name>
+        <dataType>DateTime</dataType>
+        <expression>NOW() - 2</expression>
+    </formulas>
+    <interviewLabel>Case: Email Alerts and Respective Actions {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Case: Email Alerts and Respective Actions</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_Exception_record</name>
+        <label>Log Exception record</label>
+        <locationX>930</locationX>
+        <locationY>528</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown while Sending AAA Cancellation Letter</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Case: Email Alerts and Respective Actions</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_Exception_record_0</name>
+        <label>Log Exception record</label>
+        <locationX>930</locationX>
+        <locationY>1128</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown while Sending A3 Cancellation Letter</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Case: Email Alerts and Respective Actions</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_Exception_record_0_0</name>
+        <label>Log Exception record</label>
+        <locationX>930</locationX>
+        <locationY>1728</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown while Sending Email to MX Seniors for General Callback Category Cases</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Case: Email Alerts and Respective Actions</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_Exception_record_0_0_0</name>
+        <label>Log Exception record</label>
+        <locationX>314</locationX>
+        <locationY>2448</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown while Sending Email as part of AAA</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Case: Email Alerts and Respective Actions</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_Exception_record_0_0_0_0</name>
+        <label>Log Exception record</label>
+        <locationX>842</locationX>
+        <locationY>2448</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown while Sending Email as part of A3</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Case: Email Alerts and Respective Actions</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_Exception_record_0_0_0_0_0</name>
+        <label>Log Exception record</label>
+        <locationX>2250</locationX>
+        <locationY>648</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown while Sending Email as part of A3 before 48hrs</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Case: Email Alerts and Respective Actions</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log exception in Error Log object</description>
+        <name>Log_Exception_record_0_0_0_0_0_0</name>
+        <label>Log Exception record</label>
+        <locationX>1722</locationX>
+        <locationY>648</locationY>
+        <inputAssignments>
+            <field>Custom_Message__c</field>
+            <value>
+                <stringValue>Error thrown while Sending Email as part of AAA before 48hrs</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Error_Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Source__c</field>
+            <value>
+                <stringValue>Case: Email Alerts and Respective Actions</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <start>
+        <locationX>1530</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Check_if_Case_Ticket_Type_is_updated_to_Cancellation_and_Customer_is_AAA</targetReference>
+        </connector>
+        <object>Case</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <scheduledPaths>
+            <name>Callback_Less_Than_48_Hours_AAA</name>
+            <connector>
+                <targetReference>Is_Case_created_less_than_48_hours</targetReference>
+            </connector>
+            <label>Callback Less Than 48 Hours AAA</label>
+            <offsetNumber>1</offsetNumber>
+            <offsetUnit>Minutes</offsetUnit>
+            <recordField>CreatedDate</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <description>This will create Email Message Record as part of A3 related to PB &quot;MX Attempt To Contact&quot;</description>
+        <name>Create_Email_Message_Record_as_part_of_A3</name>
+        <label>Create Email Message Record as part of A3</label>
+        <locationX>578</locationX>
+        <locationY>2448</locationY>
+        <connector>
+            <targetReference>Is_Case_created_greater_than_48_hours</targetReference>
+        </connector>
+        <flowName>Record_MX_Attempt_to_Contact_A3SH</flowName>
+        <outputAssignments>
+            <assignToReference>$Record</assignToReference>
+            <name>CaseRecordId</name>
+        </outputAssignments>
+    </subflows>
+    <subflows>
+        <description>This will create Email Message record as part of AAA</description>
+        <name>Create_Email_Message_Record_as_part_of_AAA</name>
+        <label>Create Email Message Record as part of AAA</label>
+        <locationX>50</locationX>
+        <locationY>2448</locationY>
+        <connector>
+            <targetReference>Is_Case_created_greater_than_48_hours</targetReference>
+        </connector>
+        <flowName>Record_MX_Attempt_to_Contact_AAASH</flowName>
+        <outputAssignments>
+            <assignToReference>$Record</assignToReference>
+            <name>CaseRecordId</name>
+        </outputAssignments>
+    </subflows>
+    <subflows>
+        <description>This will call the flow &quot;AAASH 48 Hour Callback&quot; to create Email Message as part of &quot;Required Update 48 Hour Callback&quot; PB</description>
+        <name>This_will_Create_Email_Message_Record</name>
+        <label>(AAA) This will Create Email Message Record</label>
+        <locationX>1458</locationX>
+        <locationY>648</locationY>
+        <flowName>Required_Update_48_Hour_Callback_AAASH</flowName>
+        <outputAssignments>
+            <assignToReference>$Record</assignToReference>
+            <name>CaseRecordId</name>
+        </outputAssignments>
+    </subflows>
+    <subflows>
+        <description>This will create Email Message Record as part of &quot;Required Update 48 Hour Callback&quot; PB</description>
+        <name>This_will_Create_Email_Message_Record_A3</name>
+        <label>(A3) This will Create Email Message Record</label>
+        <locationX>1986</locationX>
+        <locationY>648</locationY>
+        <flowName>Required_Update_48_Hour_Callback_A3SH</flowName>
+        <outputAssignments>
+            <assignToReference>$Record</assignToReference>
+            <name>CaseRecordId</name>
+        </outputAssignments>
+    </subflows>
+</Flow>

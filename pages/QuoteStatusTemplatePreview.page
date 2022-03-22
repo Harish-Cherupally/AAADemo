@@ -1,0 +1,80 @@
+<apex:page standardController="SBQQ__Quote__c" extensions="Quotetemplateview" renderAs="pdf"  >
+    <style>
+           
+        </style>
+        <div style="width: 750px;">
+            <c:AAAQuoteTemplateHeader quoteAccountName="{!quote.SBQQ__Account__r.Name}" 
+                isA3="{!IF(quote.SBQQ__Account__r.Organization__c = 'A3',true,false)}"/>
+            <br/>
+            Hi  {!quote.SBQQ__PrimaryContact__r.LastName },     
+            <br/><br/>  
+            Quote Number : {!quote.Name}
+            <br/><br/> 
+            Email : {!quote.SBQQ__PrimaryContact__r.Email}
+            <br/><br/> 
+            <c:AAAEmailTemplateBody quoteid1="{!quote.Id}" rendervalue="preview" />
+            <br/>
+            <div style="font-size: x-large;">
+                Ready to secure your home?   
+            </div>
+            
+          
+                 <div style="width: 750px;">
+                With 24/7 professional monitoring plus high-quality essential security equipment, you can <b>save 20% right away</b> and <b>56% after three years</b> compared to the industry average costs for professionally monitored home security. 
+             </div>
+         
+            <p>
+                To make any adjustments or produce a final agreement. Call your representative <b>{!quote.SBQQ__SalesRep__r.Name}</b> at via email at <b> {!quote.SBQQ__SalesRep__r.Email}</b>. 
+            </p>
+            <table width="200px" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td style="text-align: center;" bgcolor="#f45549">
+                        <div>
+                            <a href="{!'tel:' + quote.SBQQ__SalesRep__r.phone}" style=" font-weight: bold; font-family: Helvetica, Arial, sans-serif; text-decoration: none; width:100%; display:inline-block">
+                                <span style="color: #FFFFFF">
+                                    Call Us +1 {!$Label.AAA_sales_Numbr}
+                                </span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            
+            <br/>
+            <br/>            
+            
+            <div style="font-size: large;">
+                <b>Need more information?</b>
+            </div>
+            <br/>
+            To learn more about our benefits and advantages, read <b><a href="https://smarthome.calstate.aaa.com/why-aaa" target="_blank">why AAA</a></b> .
+            <br/><br/>
+            To learn more about our products, browse <b><a href="https://smarthome.calstate.aaa.com/products" target="_blank">Products</a></b> .
+            <br/><br/>
+            For an explanation of monitoring fees, please see our <b><a href="https://smarthome.calstate.aaa.com/pricing" target="_blank">Plans</a></b> .
+            <br/><br/>
+            For FAQs, visit our <b><a href="https://smarthome.calstate.aaa.com/support#faqs" target="_blank">FAQs </a></b> page.
+            <br/><br/>
+            <apex:image url="https://a3smarthome--crdev--c.documentforce.com/servlet/servlet.ImageServer?id=015030000005N8w&oid=00D030000008qkq"/>
+            <div style="font-size: small;">
+                20% or more savings is based on the cost of Basic monthly monitoring plus a basic equipment bundle 
+                (1 control panel, 4 door/window sensors, 1 smart motion detector and 1 smart smoke detector), 
+                which is over 20% less than industry averages as reported by Parks Associates in “Home Security - Market Sizing and Forecasts 2019.”
+            </div>
+            
+        </div>
+   
+    <!-- FOOTER -->
+<footer role="contentinfo"  class="slds-p-around_large">
+  <!-- LAYOUT GRID -->
+  <div class="slds-grid slds-grid_align-spread">
+    <p class="slds-col">Salesforce Lightning Design System Example</p>
+    <p class="slds-col">&copy; Your Name Here</p>
+  </div>
+  <!-- / LAYOUT GRID -->
+</footer>
+<!-- / FOOTER -->
+
+       
+
+</apex:page>
