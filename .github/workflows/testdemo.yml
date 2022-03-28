@@ -13,4 +13,6 @@ jobs:
     - name: auth with sfdx
       shell: bash
       run: 'echo ${{secrets.DEV_AUTH_URL}} > SFDX_DEV'
+    - name: Auth against dev
+      run: node_modules/sfdx-cli/bin/run force:auth:sfdxurl:store -f SFDX_DEV -s -a LRDEV
     
