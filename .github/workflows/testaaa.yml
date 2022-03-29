@@ -2,13 +2,8 @@ name: Sample Workflow
 on:
   push:
     branches: [ develop ]
-    paths:
-            - 'force-app/**'
   pull_request:
     branches: [ develop ]
-    paths:
-            - 'force-app/**'         
-
 jobs:
   build:
     runs-on: ubuntu-latest
